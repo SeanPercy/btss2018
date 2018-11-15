@@ -1,1 +1,5 @@
 .idea
+config.js
+node_modules
+server/.idea
+server/node_modules
