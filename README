@@ -1,4 +1,4 @@
-This repo contains the prototype of GraphQL-Server I developed during the summer semester 2018 for my bachelor's thesis,
+This repo contains the prototype of a GraphQL-Server I developed during the summer semester 2018 for my bachelor's thesis,
 which has the title "GraphQL for flexible Web APIs - a case study". In order to run the server successfully, you will
 need a connection to a running MongoDB instance, populated with proper collections. The code is far from being finished
 and was intentionally written to document the strengths and caveats of developing APIs with GraphQL in my aforementioned
