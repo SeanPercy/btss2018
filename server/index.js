@@ -1,22 +1,23 @@
 import { ApolloServer } from 'apollo-server-express';
 import express from 'express';
 import { createServer } from 'http';
-import mongo from 'then-mongo';
+import { MongoClient } from 'mongodb';
 
 import config from '../config';
 import { createContext} from './context';
 import { executableSchema } from './schema';
 
-
 (async () => {
 	
-	const mongoDB = await mongo(config.database.uri);
+	const mongoDB = await MongoClient
+		.connect(config.database.uri,{ useNewUrlParser: true})
+		.then(client => client.db('btss2018'));
 	
 	const server = new ApolloServer({
 		schema: executableSchema,
 		tracing: true,
 		cacheControl: true,
-		context: async({ req }) => createContext(req, mongoDB),
+		context: ({ req }) => createContext(req, mongoDB),
 	});
 	
 	const app =  express();

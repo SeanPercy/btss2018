@@ -3,7 +3,6 @@ import bcrypt from 'bcrypt';
 import jwt from 'jsonwebtoken';
 import { GraphQLScalarType } from 'graphql';
 import { Kind } from 'graphql/language';
-import mongo from 'then-mongo';
 
 import { APP_SECRET, getUser } from '../utils';
 
@@ -186,7 +185,7 @@ export const resolvers = {
 			return `${person.firstName} ${person.lastName}`;
 		},
 		superior: async(staff, _, context) => {
-			return await context.models.mongo.Staff.getById(staff.superior, context);
+			return await context.dataLoaders.mongo.superiorLoader.load(staff.superior);
 		},
 		subordinates: async(staff, _, context) => {
 			return await context.models.mongo.Staff.getByIds(staff.subordinates, context);
@@ -194,7 +193,7 @@ export const resolvers = {
 	},
 	Book: {
 		author: async(book, _, context) => {
-			return await context.dataloaders.authorLoader.load(book.author);
+			return await context.dataLoaders.mongo.authorLoader.load(book.author);
 		},
 		inSeconds: async(book, _, context) => {
 			return book.releaseDate;
