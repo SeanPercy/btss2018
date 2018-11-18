@@ -30,7 +30,11 @@ function buildFilters({OR = [], content_contains, info_contains}) {
 export const resolvers = {
 	Query: {
 		allStaff: async(parent, _ , context) => {
-			return await context.models.mongo.Staff.getAll(context);
+			const allStaff = await context.models.mongo.Staff.getAll(context);
+			for (const staff of allStaff) {
+				context.dataLoaders.mongo.staffLoader.prime(staff._id, staff);
+			}
+			return allStaff;
 		},
 		me: async(parent, _, context) => {
 			if(!context.authToken) return null;
@@ -86,8 +90,11 @@ export const resolvers = {
 		},
 		allPersons: async(parent, _ , context) => {
 			const authors = await context.models.mongo.Author.getAll(context);
-			const staff = await context.models.mongo.Staff.getAll(context);
-			return authors.concat(staff);
+			const allStaff = await context.models.mongo.Staff.getAll(context);
+			for (const staff of allStaff) {
+				context.dataLoaders.mongo.staffLoader.prime(staff._id, staff);
+			}
+			return authors.concat(allStaff);
 		},/*
 		allMessages: async (root, {filter}, context) => {
 			let query = filter ? {$or: buildFilters(filter)} : {};
@@ -174,7 +181,7 @@ export const resolvers = {
 	},
 	Author: {
 		books: async(author, _, context) => {
-			return await context.models.mongo.Book.getByIds(author.books, context);
+			return await context.dataLoaders.mongo.bookLoader.loadMany(author.books);
 		},
 		fullName: async(person, _, context) => {
 			return `${person.firstName} ${person.lastName}`;
@@ -185,10 +192,12 @@ export const resolvers = {
 			return `${person.firstName} ${person.lastName}`;
 		},
 		superior: async(staff, _, context) => {
-			return await context.dataLoaders.mongo.superiorLoader.load(staff.superior);
+			if(!staff.superior) return null;
+			return await context.dataLoaders.mongo.staffLoader.load(staff.superior);
 		},
 		subordinates: async(staff, _, context) => {
-			return await context.models.mongo.Staff.getByIds(staff.subordinates, context);
+			if(!staff.subordinates) return null;
+			return await context.dataLoaders.mongo.staffLoader.loadMany(staff.subordinates);
 		},
 	},
 	Book: {
