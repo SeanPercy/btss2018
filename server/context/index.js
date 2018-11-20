@@ -1,6 +1,7 @@
-import { MongoDBConnector }from '../connectors';
+import { MongoDBConnector } from '../connectors';
 import { Author, Book, Staff, User, Message } from '../models/mongo/index';
-import buildLoader from '../dataloaders/mongo';
+import buildMongoLoader from '../dataloaders/mongo';
+
 import { getUser } from "../utils";
 
 export function createContext( req, mongoDB ) {
@@ -25,8 +26,9 @@ export function createContext( req, mongoDB ) {
 		},
 		dataLoaders: {
 			mongo: {
-				authorLoader: buildLoader({ db: mongoDB, collection:'authors' }),
-				superiorLoader: buildLoader({ db: mongoDB, collection:'staff' })
+				authorLoader: buildMongoLoader({ db: mongoDB, collection: 'authors' }),
+				bookLoader: buildMongoLoader({ db: mongoDB, collection: 'books' }),
+				staffLoader: buildMongoLoader({ db: mongoDB, collection: 'staff' })
 			},
 		},
 		authToken: token,

@@ -1,6 +1,4 @@
-import mongo from 'then-mongo';
-import DataLoader from "dataloader/index";
-
+import mongo from 'mongodb';
 
 export default class BaseMongoModel {
 	constructor(connectorKeys){
@@ -25,7 +23,7 @@ export default class BaseMongoModel {
 			.find({}).toArray();
 	}
 	getById(id, context){
-		if (!context.user) return null;
+		//if (!context.user) return null;
 		const _id = mongo.ObjectID(id);
 		return context.connectors[this.connectorKeys.db]
 			.collection(this.connectorKeys.collection)
