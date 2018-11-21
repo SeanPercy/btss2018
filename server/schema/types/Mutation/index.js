@@ -3,7 +3,6 @@ import jwt from "jsonwebtoken";
 
 import {pubsub, MESSAGE_CREATED, BOOK_CREATED, APP_SECRET} from "../utils";
 
-
 export const Mutation =`
     type Mutation {
         addMessage(message: MessageInput!): Message
@@ -64,10 +63,10 @@ export const mutationResolvers = {
 		pubsub.publish(MESSAGE_CREATED, { messageCreated: message });
 		return await context.models.mongo.Message.addMessage(message, context);
 	},/*
-		addBook: async(parent, { book }, context) => {
-			pubsub.publish(BOOK_CREATED, { bookCreated: book });
-			return await context.models.mongo.Book.addBook(book, context);
-		},*/
+	addBook: async(parent, { book }, context) => {
+		pubsub.publish(BOOK_CREATED, { bookCreated: book });
+		return await context.models.mongo.Book.addBook(book, context);
+	},*/
 	deleteAllMessages: async(parent, _, context) => {
 		return await context.models.mongo.Message.deleteAll(context);
 	}

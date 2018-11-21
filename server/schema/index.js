@@ -12,7 +12,6 @@ import { Staff, staffResolvers } from './types/Staff';
 import { Subscription, subscriptionResolvers } from './types/Subscription';
 import { User } from './types/User';
 
-
 export const executableSchema = makeExecutableSchema({
 	typeDefs: [Query, Mutation, Subscription, Author, Book, CustomDate, Node, Person, Message, Staff, User],
 	resolvers: {
@@ -26,7 +25,16 @@ export const executableSchema = makeExecutableSchema({
 		Person: {...personResolvers},
 		Staff: {...staffResolvers},
 	},
-	resolverValidationOptions: {
-		requireResolversForResolveType: false,
+	logger: {
+		log: e => console.log(e),
 	},
+	allowUndefinedInResolve: true, // true by default
+	resolverValidationOptions: {
+		requireResolversForResolveType: false, // true by default
+		requireResolversForAllFields: false, // false by default
+		requireResolversForNonScalar: false, // false by default
+		requireResolversForArgs: false, // false by default
+		allowResolversNotInSchema: false, // false by default
+	},
+	//inheritResolversFromInterfaces: true,
 });
