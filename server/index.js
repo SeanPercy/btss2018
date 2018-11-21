@@ -5,7 +5,7 @@ import { MongoClient, Logger } from 'mongodb';
 
 import config from '../config';
 import { createContext} from './context';
-import { executableSchema } from './schema';
+import { executableSchema } from './schema/';
 
 (async () => {
 	

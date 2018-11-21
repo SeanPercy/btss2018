@@ -10,6 +10,6 @@ const getUser = (token) => {
         const { _id, username, email, role } = jwt.verify(token, APP_SECRET);
         return { _id, username, email, role };
     }
-}
+};
 
 export { APP_SECRET, getUser };
