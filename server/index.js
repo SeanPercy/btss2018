@@ -25,7 +25,7 @@ import { executableSchema } from './schema/';
 	});
 	
 	const app =  express();
-	server.applyMiddleware({ app, path: '/graphql/' });
+	server.applyMiddleware({ app, path: config.server.path });
     
 	const httpServer = createServer(app);
 	server.installSubscriptionHandlers(httpServer);

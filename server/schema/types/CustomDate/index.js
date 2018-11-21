@@ -1,12 +1,12 @@
 import {GraphQLScalarType} from "graphql";
 import {Kind} from "graphql/language";
 
-export const typeDefs =`
+export const CustomDate =`
     scalar CustomDate
     scalar Date
 `;
 
-export const resolvers = new GraphQLScalarType({
+export const customDateResolvers = new GraphQLScalarType({
 	name: 'CustomDate',
 	description: 'Date custom scalar type',
 	parseValue(value) {

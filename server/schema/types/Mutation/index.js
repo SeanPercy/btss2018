@@ -4,7 +4,7 @@ import jwt from "jsonwebtoken";
 import {pubsub, MESSAGE_CREATED, BOOK_CREATED, APP_SECRET} from "../utils";
 
 
-export const typeDefs =`
+export const Mutation =`
     type Mutation {
         addMessage(message: MessageInput!): Message
         deleteAllMessages: Boolean
@@ -13,7 +13,7 @@ export const typeDefs =`
     }
 `;
 
-export const resolvers = {
+export const mutationResolvers = {
 	signup: async(parent, { credentials }, context) => {
 		const { username, email, password, role } = credentials;
 		const user = await context.models.mongo.User.create({

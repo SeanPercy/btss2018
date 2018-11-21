@@ -1,4 +1,4 @@
-export const typeDefs =`
+export const Message =`
     type Message implements Node {
        _id: ID!
        content: String!
@@ -19,7 +19,3 @@ export const typeDefs =`
 	  info_contains: String
 	}
 `;
-
-export const resolvers = {
-
-};

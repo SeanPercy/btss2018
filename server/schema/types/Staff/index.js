@@ -1,4 +1,4 @@
-export const typeDefs =`
+export const Staff =`
     type Staff implements Node & Person {
         _id: ID!
         firstName: String!
@@ -21,7 +21,7 @@ export const typeDefs =`
     }
 `;
 
-export const resolvers = {
+export const staffResolvers = {
 	fullName: async(person, _, context) => {
 		return `${person.firstName} ${person.lastName}`;
 	},

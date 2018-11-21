@@ -1,13 +1,13 @@
 import { pubsub, MESSAGE_CREATED, BOOK_CREATED } from "../utils";
 
-export const typeDefs =`
+export const Subscription =`
     type Subscription {
         messageCreated: Message
         bookCreated: Book
     }
 `;
 
-export const resolvers = {
+export const subscriptionResolvers = {
 	messageCreated: {
 		subscribe: () => pubsub.asyncIterator([MESSAGE_CREATED]),
 	},

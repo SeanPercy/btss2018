@@ -1,4 +1,4 @@
-export const typeDefs =`
+export const Book =`
 	type Book implements Node {
         _id: ID!
         title: String!
@@ -23,7 +23,7 @@ export const typeDefs =`
 	}
 `;
 
-export const resolvers = {
+export const bookResolvers = {
 	author: async(book, _, context) => {
 		return await context.dataLoaders.mongo.authorLoader.load(book.author);
 	},

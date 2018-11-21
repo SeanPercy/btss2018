@@ -1,4 +1,4 @@
-export const typeDefs =`
+export const Author =`
     type Author implements Node & Person {
         _id: ID!
         firstName: String!
@@ -11,7 +11,7 @@ export const typeDefs =`
     }
 `;
 
-export const resolvers = {
+export const authorResolvers = {
 	books: async(author, _, context) => {
 		return await context.dataLoaders.mongo.bookLoader.loadMany(author.books);
 	},

@@ -1,4 +1,4 @@
-export const typeDefs =`
+export const User =`
     type User implements Node {
         _id: ID!
         username: String!
@@ -25,7 +25,3 @@ export const typeDefs =`
         password: String!
     }
 `;
-
-export const resolvers = {
-
-};

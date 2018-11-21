@@ -1,4 +1,4 @@
-export const typeDefs =`
+export const Person =`
     interface Person {
         firstName: String!
         lastName: String!
@@ -13,7 +13,7 @@ export const typeDefs =`
     }
 `;
 
-export const resolvers = {
+export const personResolvers = {
 	__resolveType(person, _,context, info){
 		if(person.books){
 			return 'Author';

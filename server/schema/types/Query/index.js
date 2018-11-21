@@ -1,6 +1,6 @@
 import { getUser, buildFilters } from "../utils";
 
-export const typeDefs =`
+export const Query =`
     type Query {
         allAuthors: [Author!]
         allBooks: [Book!]
@@ -21,7 +21,7 @@ export const typeDefs =`
     }
 `;
 
-export const resolvers = {
+export const queryResolvers = {
 	allStaff: async(parent, _ , context) => {
 		const allStaff = await context.models.mongo.Staff.getAll(context);
 		for (const staff of allStaff) {
