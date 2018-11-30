@@ -1,4 +1,4 @@
-import { pubsub, MESSAGE_CREATED, BOOK_CREATED } from "../utils";
+import { pubsub, MESSAGE_CREATED, BOOK_CREATED } from '../utils';
 
 export const Subscription =`
     type Subscription {

@@ -1,4 +1,4 @@
-import DataLoader from "dataloader/index";
+import DataLoader from 'dataloader/index';
 
 export default function({db, collection}) {
 	return new DataLoader(

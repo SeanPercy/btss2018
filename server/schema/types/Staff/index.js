@@ -22,7 +22,7 @@ export const Staff =`
 `;
 
 export const staffResolvers = {
-	fullName: (person, _, context) => {
+	fullName: (person) => {
 		return `${person.firstName} ${person.lastName}`;
 	},
 	superior: (staff, _, context) => {

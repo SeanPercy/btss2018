@@ -14,7 +14,7 @@ import { executableSchema } from './schema/';
 		.then(client => {
 			console.log('Connected correctly to database');
 			Logger.setLevel('error');
-			return client.db(config.database.name)
+			return client.db(config.database.name);
 		});
 	
 	const server = new ApolloServer({

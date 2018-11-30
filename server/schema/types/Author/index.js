@@ -15,7 +15,7 @@ export const authorResolvers = {
 	books: (author, _, context) => {
 		return context.dataLoaders.mongo.bookLoader.loadMany(author.books);
 	},
-	fullName: (person, _, context) => {
+	fullName: (person) => {
 		return `${person.firstName} ${person.lastName}`;
 	},
 };

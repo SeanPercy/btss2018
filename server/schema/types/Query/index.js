@@ -1,4 +1,4 @@
-import { getUser, buildFilters } from "../utils";
+import { getUser, buildFilters } from '../utils';
 
 export const Query =`
     type Query {

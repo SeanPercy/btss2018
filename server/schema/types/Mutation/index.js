@@ -1,7 +1,7 @@
-import bcrypt from "bcrypt";
-import jwt from "jsonwebtoken";
+import bcrypt from 'bcrypt';
+import jwt from 'jsonwebtoken';
 
-import {pubsub, MESSAGE_CREATED, BOOK_CREATED, APP_SECRET} from "../utils";
+import {pubsub, MESSAGE_CREATED, BOOK_CREATED, APP_SECRET} from '../utils';
 
 export const Mutation =`
     type Mutation {

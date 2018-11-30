@@ -27,7 +27,7 @@ export const bookResolvers = {
 	author: (book, _, context) => {
 		return context.dataLoaders.mongo.authorLoader.load(book.author);
 	},
-		inSeconds: (book, _, context) => {
+	inSeconds: (book) => {
 		return book.releaseDate;
 	}
 };
