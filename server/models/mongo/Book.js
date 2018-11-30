@@ -5,7 +5,7 @@ export default class Book extends BaseMongoModel {
 		return context.connectors[this.connectorKeys.db]
 			.collection(this.connectorKeys.collection)
 			.insertOne({book})
-			.then((respsone) => respsone.ops[0]);
+			.then((response) => response.ops[0]);
 	}
 	getByTitle(title, context){
 		if (!context.user) return null;

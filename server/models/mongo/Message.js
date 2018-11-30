@@ -5,7 +5,7 @@ export default class Message extends BaseMongoModel {
 		return context.connectors[this.connectorKeys.db]
 			.collection(this.connectorKeys.collection)
 			.insertOne({content, info})
-			.then((respsone) => respsone.ops[0]);
+			.then((response) => response.ops[0]);
 	}
 	search(where, context){
 		return context.connectors[this.connectorKeys.db]

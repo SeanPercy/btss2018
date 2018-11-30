@@ -10,6 +10,6 @@ export default class User extends BaseMongoModel {
 		return context.connectors[this.connectorKeys.db]
 			.collection(this.connectorKeys.collection)
 			.insert({ username, email, password, role})
-			.then((respsone) => respsone.ops[0]);
+			.then((response) => response.ops[0]);
 	}
 }
