@@ -7,7 +7,7 @@ export function createContext( req, mongoDB ) {
 	if (!req || !req.headers) {
 		return;
 	}
-	const token = req.headers.authorization || "";
+	const token = req.headers.authorization || '';
 	const user = getUser(token);
 	
 	return {
