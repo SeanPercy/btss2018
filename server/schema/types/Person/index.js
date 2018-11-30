@@ -14,7 +14,7 @@ export const Person =`
 `;
 
 export const personResolvers = {
-	__resolveType(person, _, context, info){
+	__resolveType(person){
 		if(person.books){
 			return 'Author';
 		}

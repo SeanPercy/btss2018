@@ -1,7 +1,7 @@
 import { PubSub } from 'apollo-server-express';
 
 /// AUTH
-export { getUser, APP_SECRET } from '../../utils'
+export { getUser, APP_SECRET } from '../../utils';
 
 /// SUBSCRIPTIONS
 export const pubsub = new PubSub();
