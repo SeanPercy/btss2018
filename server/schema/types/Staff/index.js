@@ -22,15 +22,15 @@ export const Staff =`
 `;
 
 export const staffResolvers = {
-	fullName: async(person, _, context) => {
+	fullName: (person, _, context) => {
 		return `${person.firstName} ${person.lastName}`;
 	},
-	superior: async(staff, _, context) => {
+	superior: (staff, _, context) => {
 		if(!staff.superior) return null;
-		return await context.dataLoaders.mongo.staffLoader.load(staff.superior);
+		return context.dataLoaders.mongo.staffLoader.load(staff.superior);
 	},
-	subordinates: async(staff, _, context) => {
+	subordinates: (staff, _, context) => {
 		if(!staff.subordinates) return null;
-		return await context.dataLoaders.mongo.staffLoader.loadMany(staff.subordinates);
+		return context.dataLoaders.mongo.staffLoader.loadMany(staff.subordinates);
 	},
 };

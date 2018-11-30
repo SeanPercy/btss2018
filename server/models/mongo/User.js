@@ -1,5 +1,3 @@
-import jwtDecode from 'jwt-decode';
-
 import BaseMongoModel from './BaseMongoModel';
 
 export default class User extends BaseMongoModel {
@@ -11,6 +9,7 @@ export default class User extends BaseMongoModel {
 	create({username, email, password, role}, context){
 		return context.connectors[this.connectorKeys.db]
 			.collection(this.connectorKeys.collection)
-			.insert({ username, email, password, role});
+			.insert({ username, email, password, role})
+			.then((respsone) => respsone.ops[0]);
 	}
 }

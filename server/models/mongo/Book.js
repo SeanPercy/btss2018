@@ -1,9 +1,11 @@
 import BaseMongoModel from './BaseMongoModel';
 
 export default class Book extends BaseMongoModel {
-	addMessage({book}, context){
+	addBook({book}, context){
 		return context.connectors[this.connectorKeys.db]
-			.collection(this.connectorKeys.collection).insert({book});
+			.collection(this.connectorKeys.collection)
+			.insertOne({book})
+			.then((respsone) => respsone.ops[0]);
 	}
 	getByTitle(title, context){
 		if (!context.user) return null;

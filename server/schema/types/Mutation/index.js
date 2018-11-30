@@ -59,15 +59,15 @@ export const mutationResolvers = {
 		
 		return { user, token };
 	},
-	addMessage: async(parent, { message }, context) => {
+	addMessage: (parent, { message }, context) => {
 		pubsub.publish(MESSAGE_CREATED, { messageCreated: message });
-		return await context.models.mongo.Message.addMessage(message, context);
+		return context.models.mongo.Message.addMessage(message, context);
 	},/*
-	addBook: async(parent, { book }, context) => {
+	addBook: (parent, { book }, context) => {
 		pubsub.publish(BOOK_CREATED, { bookCreated: book });
-		return await context.models.mongo.Book.addBook(book, context);
+		return context.models.mongo.Book.addBook(book, context);
 	},*/
-	deleteAllMessages: async(parent, _, context) => {
-		return await context.models.mongo.Message.deleteAll(context);
+	deleteAllMessages: (parent, _, context) => {
+		return context.models.mongo.Message.deleteAll(context);
 	}
 };

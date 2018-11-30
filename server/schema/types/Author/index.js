@@ -12,10 +12,10 @@ export const Author =`
 `;
 
 export const authorResolvers = {
-	books: async(author, _, context) => {
-		return await context.dataLoaders.mongo.bookLoader.loadMany(author.books);
+	books: (author, _, context) => {
+		return context.dataLoaders.mongo.bookLoader.loadMany(author.books);
 	},
-	fullName: async(person, _, context) => {
+	fullName: (person, _, context) => {
 		return `${person.firstName} ${person.lastName}`;
 	},
 };

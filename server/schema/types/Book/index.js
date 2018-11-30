@@ -24,10 +24,10 @@ export const Book =`
 `;
 
 export const bookResolvers = {
-	author: async(book, _, context) => {
-		return await context.dataLoaders.mongo.authorLoader.load(book.author);
+	author: (book, _, context) => {
+		return context.dataLoaders.mongo.authorLoader.load(book.author);
 	},
-		inSeconds: async(book, _, context) => {
+		inSeconds: (book, _, context) => {
 		return book.releaseDate;
 	}
 };
