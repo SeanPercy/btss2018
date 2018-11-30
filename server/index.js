@@ -4,7 +4,7 @@ import { createServer } from 'http';
 import { MongoClient, Logger } from 'mongodb';
 
 import config from '../config';
-import { createContext} from './context';
+import { createContext } from './context';
 import { executableSchema } from './schema/';
 
 (async () => {
@@ -14,7 +14,7 @@ import { executableSchema } from './schema/';
 		.then(client => {
 			console.log('Connected correctly to database');
 			Logger.setLevel('error');
-			return client.db('btss2018')
+			return client.db(config.database.name)
 		});
 	
 	const server = new ApolloServer({
