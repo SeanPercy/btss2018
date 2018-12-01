@@ -25,9 +25,9 @@ import { executableSchema } from './schema/';
 	});
 	
 	const app =  express();
-	server.applyMiddleware({ app, path: config.server.path });
-    
 	const httpServer = createServer(app);
+	
+	server.applyMiddleware({ app, path: config.server.path });
 	server.installSubscriptionHandlers(httpServer);
 	httpServer.listen({ port: config.server.port }, () =>
 		console.log(`🚀 Server ready at http://localhost:${config.server.port}${server.graphqlPath}`)
