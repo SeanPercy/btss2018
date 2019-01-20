@@ -4,6 +4,7 @@ import { createServer } from 'http';
 import { MongoClient, Logger } from 'mongodb';
 
 import config from '../config';
+import fillDataBase from './fillDB';
 import { createContext } from './context';
 import { executableSchema } from './schema/';
 
@@ -14,8 +15,10 @@ import { executableSchema } from './schema/';
 		.then(client => {
 			console.log('Connected correctly to database');
 			Logger.setLevel('error');
-			return client.db(config.database.name);
+			return client.db(config.database.uri);
 		});
+
+	await fillDataBase(mongoDB);
 	
 	const server = new ApolloServer({
 		schema: executableSchema,
