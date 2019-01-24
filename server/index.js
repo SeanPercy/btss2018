@@ -4,7 +4,7 @@ import { createServer } from 'http';
 import { MongoClient, Logger } from 'mongodb';
 
 import config from '../config';
-import fillDataBase from './fillDB';
+import fillDataBase from './helpers/fillDatabase';
 import { createContext } from './context';
 import { executableSchema } from './schema/';
 
