@@ -22,10 +22,11 @@ const seedDatabase = (database) => {
 			database.createCollection('users')
 		])
 			.then(([authors, books, staff]) => {
+				console.log('Created new collections for current session.');
 				createStaff(staff)
 					.then(() => createAuthors(authors))
 					.then(() => createBooks(authors, books))
-					.then(() => resolve('Created new collections for current session.'))
+					.then(() => resolve('Database seeding successful.'))
 					.catch(e => reject(e));
 			})
 			.catch(e => reject(e));
