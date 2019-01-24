@@ -8,20 +8,30 @@ module.exports = exports = async (database) => {
 	const db = mongoose.connection;
 	mongoose.Promise = global.Promise;
 	mongoose.pluralize(null);*/
+
+	Promise.all([
+		database.collection('books').drop(),
+		database.collection('authors').drop(),
+		database.collection('staff').drop(),
+		database.collection('users').drop()
+	])
+		.catch(e =>console.log('Failed to drop collections. ', e));
+	/*
 	try {
 		database.collection('books').drop();
 		database.collection('authors').drop();
 		database.collection('staff').drop();
+		database.collection('users').drop();
 
 	} catch (e) {
 		console.log('Failed to drop collections. ', e)
-	}
+	}*/
 
-	const books = database.createCollection('books');
-	const authors = database.createCollection('authors');
-	const staff = database.createCollection('staff');
+	const books = await database.createCollection('books').then(coll => coll);
+	const authors = await database.createCollection('authors').then(coll => coll);
+	const staff = await database.createCollection('staff').then(coll => coll);
+	await database.createCollection('users');
 
-	//db.on('error', console.error.bind(console, 'MongoDB connection error:'));
 
 main();
 
@@ -71,9 +81,12 @@ main();
 		const jane = await staff.findOne({firstName: "Jane"});
 		const lisa = await staff.findOne({firstName: "Lisa"});
 
-		await staff.update({_id: vito._id}, {$push: {'subordinates': {$each: [jane._id, lisa._id]}}});
-		await staff.update({_id: jane._id}, {$set: {'superior': vito._id}});
-		await staff.update({_id: lisa._id}, {$set: {'superior': vito._id}});
+		Promise.all([
+			staff.updateOne({_id: vito._id}, {$push: {'subordinates': {$each: [jane._id, lisa._id]}}}),
+			staff.updateOne({_id: jane._id}, {$set: {'superior': vito._id}}),
+			staff.updateOne({_id: lisa._id}, {$set: {'superior': vito._id}})
+		]);
+
 
 // HEAD OF SALES and HEAD OF MARKETING
 		await staff.insertMany([{
@@ -100,7 +113,7 @@ main();
 
 		const anna = await staff.findOne({firstName: "Anna"});
 		const ashley = await staff.findOne({firstName: "Ashley"});
-		await staff.update({_id: vito._id}, {$push: {'subordinates': {$each: [anna._id, ashley._id]}}});
+		await staff.updateOne({_id: vito._id}, {$push: {'subordinates': {$each: [anna._id, ashley._id]}}});
 
 // MEMBERS OF SALES
 		await staff.insertMany([{
@@ -127,7 +140,7 @@ main();
 
 		const jim = await staff.findOne({firstName: "Jim"});
 		const harpal = await staff.findOne({firstName: "Harpal"});
-		await staff.update({_id: anna._id}, {$push: {'subordinates': {$each: [jim._id, harpal._id]}}});
+		await staff.updateOne({_id: anna._id}, {$push: {'subordinates': {$each: [jim._id, harpal._id]}}});
 
 // MEMBERS OF MARKETING
 		await staff.insertMany([{
@@ -166,9 +179,9 @@ main();
 		const kendrick = await staff.findOne({firstName: "Kendrick"});
 		const christine = await staff.findOne({firstName: "Christine"});
 
-		await staff.update({_id: ashley._id}, {$push: {'subordinates': {$each: [nancy._id, kendrick._id]}}});
-		await staff.update({_id: kendrick._id}, {$push: {'subordinates': christine._id}});
-		await staff.update({_id: christine._id}, {$set: {'superior': kendrick._id}});
+		await staff.updateOne({_id: ashley._id}, {$push: {'subordinates': {$each: [nancy._id, kendrick._id]}}});
+		await staff.updateOne({_id: kendrick._id}, {$push: {'subordinates': christine._id}});
+		await staff.updateOne({_id: christine._id}, {$set: {'superior': kendrick._id}});
 
 // HEAD OF IT
 		await staff.insertMany([{
@@ -226,7 +239,7 @@ main();
 		const eric = await staff.findOne({firstName: "Eric"});
 		const alexander = await staff.findOne({firstName: "Alexander"});
 
-		await staff.update({_id: daniel._id}, {$push: {'subordinates': {$each: [george._id, eric._id, alexander._id]}}});
+		await staff.updateOne({_id: daniel._id}, {$push: {'subordinates': {$each: [george._id, eric._id, alexander._id]}}});
 
 		await staff.insertMany([{
 			firstName: "Jacob",
@@ -241,7 +254,7 @@ main();
 		}]);
 
 		const jacob = await staff.findOne({firstName: "Jacob"});
-		await staff.update({_id: kendrick._id}, {$push: {'subordinates': jacob._id}});
+		await staff.updateOne({_id: kendrick._id}, {$push: {'subordinates': jacob._id}});
 		await console.log('DONE WITH STAFF');
 
 	}
@@ -345,7 +358,7 @@ main();
 		const cookForFortyHumans = await books.findOne({title: "How To Cook For Forty Humans"});
 		const eatingPeopleIsWrong = await books.findOne({title: "Eating People Is Wrong"});
 
-		await authors.update({_id: richard._id}, {
+		await authors.updateOne({_id: richard._id}, {
 			$push: {'books': {
 					$each: [
 						cookHumans._id,
@@ -394,7 +407,7 @@ main();
 		const wifeWidow = await books.findOne({title: "Teach Your Wife To Be A Widow"});
 		const goodParts = await books.findOne({title: "JavaScript The Good Parts"});
 
-		await authors.update({_id: olivia._id}, {
+		await authors.updateOne({_id: olivia._id}, {
 			$push: {'books': {
 					$each: [
 						caffeine._id,
@@ -445,7 +458,7 @@ main();
 		const practicalPyromaniac = await books.findOne({title: "The Practical Pyromaniac"});
 		const flagsPerCountry = await books.findOne({title: "Flags Per Country"});
 
-		await authors.update({_id: chris._id}, {
+		await authors.updateOne({_id: chris._id}, {
 			$push: {'books': {
 					$each: [
 						tractors._id,
@@ -496,7 +509,7 @@ main();
 		const nodeRightWay = await books.findOne({title: "Node.js The Right Way"});
 		const fundamentalsNode = await books.findOne({title: "Fundamentals Of Node.js"});
 
-		await authors.update({_id: frank._id}, {
+		await authors.updateOne({_id: frank._id}, {
 			$push: {'books': {
 					$each: [
 						buildingAPIs._id,
@@ -547,7 +560,7 @@ main();
 		const typeScript = await books.findOne({title: "Pro TypeScript"});
 		const flowJS = await books.findOne({title: "Introduction To Flow.Js"});
 
-		await authors.update({_id: victoria._id}, {
+		await authors.updateOne({_id: victoria._id}, {
 			$push: {'books': {
 					$each: [
 						graphqlRelay._id,
@@ -598,7 +611,7 @@ main();
 		const reactJs = await books.findOne({title: "Pro React"});
 		const expressJs = await books.findOne({title: "Pro Express.js"});
 
-		await authors.update({_id: yael._id}, {
+		await authors.updateOne({_id: yael._id}, {
 			$push: {'books': {
 					$each: [
 						angular2._id,
@@ -650,24 +663,25 @@ main();
 		const backbone = await books.findOne({title: "Learn Backbone.js"});
 		const mern = await books.findOne({title: "Pro MERN Stack"});
 
-		await authors.update({_id: richard._id}, {
-			$push: {'books' : reactQuickly._id}
-		});
-		await authors.update({_id: richard._id}, {
+
+		Promise.all([
+			authors.updateOne({_id: richard._id}, {
+				$push: {'books' : reactQuickly._id}
+			}),
+			authors.updateOne({_id: richard._id}, {
 			$push: {'books' : mean._id}
-		});
-		await authors.update({_id: olivia._id}, {
+			}),
+			await authors.updateOne({_id: olivia._id}, {
 			$push: {'books' : fullStackJavaScript._id}
-		});
-		await authors.update({_id: victoria._id}, {
+			}),
+			await authors.updateOne({_id: victoria._id}, {
 			$push: {'books' : backbone._id}
-		});
-		await authors.update({_id: chris._id}, {
+			}),
+			await authors.updateOne({_id: chris._id}, {
 			$push: {'books' : mern._id}
-		});
+			})
+		]);
 
 		await console.log('DONE WITH BOOKS');
-
 	}
-
 };

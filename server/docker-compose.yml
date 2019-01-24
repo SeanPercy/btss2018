@@ -3,17 +3,19 @@ services:
   app:
     container_name: app
     restart: always
-    build: ..
+    build:
+      context: .
+      dockerfile: Dockerfile
     ports:
-    - "4000:4000"
+    - "4005:4005"
     links:
-    - mongo
+    - mongodb
     depends_on:
-    - mongo
+    - mongodb
     environment:
-      WAIT_HOSTS: mongo:27017
-  mongo:
-    container_name: mongo
+      WAIT_HOSTS: mongodb//:192.168.99.100:27017
+  mongodb:
+    container_name: mongodb
     restart: always
     image: mongo
     ports:
