@@ -1,9 +1,15 @@
 FROM node:10
-WORKDIR /usr/src/app
-COPY package*.json ./
+
+WORKDIR /app/server
+
+COPY package*.json /app/server/
+
 RUN npm install
-COPY . .
-ADD https://github.com/ufoscout/docker-compose-wait/releases/download/2.2.1/wait /wait
-RUN chmod +x /wait
-EXPOSE 4005
-CMD /wait && [ "npm", "start" ]
+
+COPY . /app/server
+
+ARG server_port
+# 4000
+EXPOSE ${server_port}
+
+CMD npm start

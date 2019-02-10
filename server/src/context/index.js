@@ -1,6 +1,6 @@
-import { MongoDBConnector } from '../connectors';
+import { MongoDBConnector } from '../connectors/index';
 import { Author, Book, Staff, User, Message } from '../models/mongo/index';
-import buildMongoLoader from '../dataloaders/mongo';
+import buildMongoLoader from '../dataloaders/mongo/index';
 import { getUser } from '../helpers/utils';
 
 export function createContext( req, mongoDB ) {
