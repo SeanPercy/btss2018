@@ -2,39 +2,36 @@
   "name": "server",
   "version": "1.0.0",
   "description": "",
-  "main": "index.js",
+  "main": "src/index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "start": "nodemon --exec babel-node index.js",
-    "lint": "eslint ./connectors ./context ./dataloaders ./models ./schema index.js utils.js"
+    "start": "nodemon --exec babel-node src/index.js",
+    "lint": "eslint ./src"
   },
   "author": "Sean-Percy Harnack",
   "license": "ISC",
   "dependencies": {
-    "apollo-server-express": "^2.0.0",
+    "apollo-server-express": "^2.4.0",
     "babel-cli": "^6.26.0",
     "babel-preset-env": "^1.7.0",
     "babel-preset-stage-2": "^6.24.1",
-    "bcrypt": "^3.0.0",
+    "bcrypt": "^3.0.4",
     "dataloader": "^1.4.0",
-    "dotenv": "^6.0.0",
-    "eslint": "^4.19.1",
-    "express": "^4.16.3",
+    "eslint": "^5.13.0",
+    "express": "^4.16.4",
     "express-jwt": "^5.3.1",
-    "graphql": "^0.13.2",
-    "graphql-subscriptions": "^0.5.8",
-    "graphql-tools": "^3.0.5",
-    "jsonwebtoken": "^8.3.0",
+    "graphql": "^14.1.1",
+    "graphql-subscriptions": "^1.0.0",
+    "graphql-tools": "^4.0.4",
+    "jsonwebtoken": "^8.4.0",
     "jwt-decode": "^2.2.0",
-    "lodash": "^4.17.11",
-    "mongodb": "^3.1.10",
-    "nodemon": "^1.18.3",
-    "subscriptions-transport-ws": "^0.9.14",
-    "then-mongo": "^3.0.2"
+    "mongodb": "^3.1.13",
+    "nodemon": "^1.18.10",
+    "subscriptions-transport-ws": "^0.9.15"
   },
   "devDependencies": {
     "apollo-cli": "^0.4.0",
-    "eslint-config-airbnb-base": "^13.0.0",
-    "eslint-plugin-import": "^2.13.0"
+    "eslint-config-airbnb-base": "^13.1.0",
+    "eslint-plugin-import": "^2.16.0"
   }
 }
