@@ -1,5 +1,5 @@
 import jwt from 'jsonwebtoken';
-import config from '../config';
+import config from '../server-config';
 
 const APP_SECRET = config.jwt.secret;
 

@@ -1,6 +1,7 @@
 .idea
-config.js
+client/node_modules
+client/.idea
+client/ts-build
 database
-node_modules
 server/.idea
 server/node_modules

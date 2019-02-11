@@ -1,16 +1,17 @@
+// eslint-disable-next-line no-console
 import { makeExecutableSchema } from 'graphql-tools';
 
-import { Author, authorResolvers } from './types/Author';
-import { Book, bookResolvers } from './types/Book';
-import { CustomDate, customDateResolvers } from './types/CustomDate';
-import { Node, nodeResolvers} from './types/Node';
-import { Person, personResolvers } from './types/Person';
-import { Message } from './types/Message';
-import { Mutation, mutationResolvers } from './types/Mutation';
-import { Query, queryResolvers } from './types/Query';
-import { Staff, staffResolvers } from './types/Staff';
-import { Subscription, subscriptionResolvers } from './types/Subscription';
-import { User } from './types/User';
+import { Author, authorResolvers } from './types/Author/index';
+import { Book, bookResolvers } from './types/Book/index';
+import { CustomDate, customDateResolvers } from './types/CustomDate/index';
+import { Node, nodeResolvers} from './types/Node/index';
+import { Person, personResolvers } from './types/Person/index';
+import { Message } from './types/Message/index';
+import { Mutation, mutationResolvers } from './types/Mutation/index';
+import { Query, queryResolvers } from './types/Query/index';
+import { Staff, staffResolvers } from './types/Staff/index';
+import { Subscription, subscriptionResolvers } from './types/Subscription/index';
+import { User } from './types/User/index';
 
 export const executableSchema = makeExecutableSchema({
 	typeDefs: [Query, Mutation, Subscription, Author, Book, CustomDate, Node, Person, Message, Staff, User],
