@@ -47,4 +47,4 @@ networks:
   backend:
     driver: bridge
 volumes:
-  node_modules:
+  node_modules:   # refers to the node_modules folder inside ./server/

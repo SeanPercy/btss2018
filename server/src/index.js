@@ -12,7 +12,7 @@ import { executableSchema } from './schema';
 
 	// CONNECT TO DATABASE
 	const mongoDB = await MongoClient
-		.connect(`mongodb://localhost:${config.db.port}`, // Without Docker, connect to 'mongodb://localhost:${config.db.port}
+		.connect(`${config.db.host}:${config.db.port}`, // Without Docker, connect to 'mongodb://localhost:${config.db.port}
 			{
 				useNewUrlParser: true,
 				authSource: config.db.name,
