@@ -1,4 +1,4 @@
-import mongo from 'mongodb';
+import { ObjectID } from 'mongodb';
 
 export default class BaseMongoModel {
 	constructor(connectorKeys){
@@ -12,7 +12,7 @@ export default class BaseMongoModel {
 	}
 	deleteById(id, context){
 		if (!context.user || !context.user.role === 'ADMIN') return null;
-		const _id = mongo.ObjectID(id);
+		const _id = ObjectID(id);
 		return context.connectors[this.connectorKeys.db]
 			.collection(this.connectorKeys.collection)
 			.remove({ _id });
@@ -24,14 +24,14 @@ export default class BaseMongoModel {
 	}
 	getById(id, context){
 		//if (!context.user) return null;
-		const _id = mongo.ObjectID(id);
+		const _id = ObjectID(id);
 		return context.connectors[this.connectorKeys.db]
 			.collection(this.connectorKeys.collection)
 			.findOne({ _id });
 	}
 	getByIds(ids, context){
 		//if (!context.user) return null;
-		const _ids = ids.map(id => mongo.ObjectID(id));
+		const _ids = ids.map(id => ObjectID(id));
 		return context.connectors[this.connectorKeys.db]
 			.collection(this.connectorKeys.collection)
 			.find({ '_id': { $in: _ids } }).toArray();

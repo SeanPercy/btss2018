@@ -11,6 +11,7 @@ const {
 	APP_SECRET
 } = process.env;
 
+// below are the fallback default values, when running the app on Docker. When not using Docker the 'host' values have to be changed
 export default {
 	auth: {
 		password: APP_PASSWORD || 'app-password',
@@ -18,7 +19,7 @@ export default {
 	},
 	authMechanism: AUTH_MECHANISM || 'DEFAULT',
 	db: {
-		host: DB_HOST || 'mongodb://mongo',
+		host: DB_HOST || 'mongodb://mongo', //  Change it to 'mongodb://localhost' when not using Docker. 'mongo' refers to the Docker container's name inside docker-compose.*.yml
 		name: DATABASE || 'btss2018',
 		port: DB_PORT || '27017',
 	},
@@ -26,7 +27,7 @@ export default {
 		secret: APP_SECRET || 'my_secret',
 	},
 	server: {
-		host: SERVER_HOST || '192.168.99.100',  // THIS DOCKER'S DEFAULT GATEWAY. WHEN NOT USING DOCKER TIS VALUE IS PROBABLY "localhost"
+		host: SERVER_HOST || '192.168.99.100',  // Change it to "localhost" when not using Docker
 		path: SERVER_PATH || '/graphql/',
 		port: SERVER_PORT || 4000,
 	}

@@ -1,3 +1,4 @@
+// eslint-disable-next-line no-console
 import { makeExecutableSchema } from 'graphql-tools';
 
 import { Author, authorResolvers } from './types/Author/index';

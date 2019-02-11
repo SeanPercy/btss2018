@@ -12,7 +12,7 @@ import { executableSchema } from './schema';
 
 	// CONNECT TO DATABASE
 	const mongoDB = await MongoClient
-		.connect(`${config.db.host}:${config.db.port}`,
+		.connect(`${config.db.host}:${config.db.port}`, // Without Docker, connect to 'mongodb://localhost:${config.db.port}
 			{
 				useNewUrlParser: true,
 				authSource: config.db.name,
@@ -49,7 +49,7 @@ import { executableSchema } from './schema';
 	server.applyMiddleware({ app, path: config.server.path });
 	server.installSubscriptionHandlers(httpServer);
 	httpServer.listen({ port: config.server.port }, () =>
-		// it should be 'http://192.168.99.100:4000/graphql/' or 'http://localhost:4000/graphql/'
+		// On Docker it should be 'http://192.168.99.100:4000/graphql/' Otherwise it is 'http://localhost:4000/graphql/'
 		console.log(`🚀 Server ready at http://${config.server.host}:${config.server.port}${config.server.path}`)
 	);
 })();

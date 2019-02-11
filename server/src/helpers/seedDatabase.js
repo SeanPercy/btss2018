@@ -1,3 +1,4 @@
+/*eslint no-console: "error"*/
 import dateGen from './dateGenerator';
 
 const seedDatabase = (database) => {
@@ -506,40 +507,44 @@ const seedDatabase = (database) => {
 				},
 			]);
 
-			const cookHumans = await books.findOne({title: 'How To Cook Humans'});
-			const cookForHumans = await books.findOne({title: 'How To Cook For Humans'});
-			const cookFortyHumans = await books.findOne({title: 'How To Cook Forty Humans'});
-			const cookForFortyHumans = await books.findOne({title: 'How To Cook For Forty Humans'});
-			const eatingPeopleIsWrong = await books.findOne({title: 'Eating People Is Wrong'});
-			const caffeine = await books.findOne({title: 'Caffeine Killed My Family'});
-			const howToBeCool = await books.findOne({title: 'How To Be Cool'});
-			const everythingIllegal = await books.findOne({title: 'Everything I Want To Do Is Illegal'});
-			const wifeWidow = await books.findOne({title: 'Teach Your Wife To Be A Widow'});
-			const goodParts = await books.findOne({title: 'JavaScript The Good Parts'});
-			const tractors = await books.findOne({title: 'Love, Sex and Tractors'});
-			const avoidHugeShips = await books.findOne({title: 'How To Avoid Huge Ships'});
-			const artOfKnitting = await books.findOne({title: 'The Manly Art Of Knitting'});
-			const practicalPyromaniac = await books.findOne({title: 'The Practical Pyromaniac'});
-			const flagsPerCountry = await books.findOne({title: 'Flags Per Country'});
-			const buildingAPIs = await books.findOne({title: 'Building APIs With Node.js'});
-			const nodeWebDev = await books.findOne({title: 'Node.JS Web Development'});
-			const nodeDesignPatterns = await books.findOne({title: 'Node.js Desgin Patterns'});
-			const nodeRightWay = await books.findOne({title: 'Node.js The Right Way'});
-			const fundamentalsNode = await books.findOne({title: 'Fundamentals Of Node.js'});
-			const graphqlRelay = await books.findOne({title: 'GraphQL and Relay'});
-			const startReactNative = await books.findOne({title: 'Getting Started With React Native'});
-			const learningReactNative = await books.findOne({title: 'Learning React Native'});
-			const typeScript = await books.findOne({title: 'Pro TypeScript'});
-			const flowJS = await books.findOne({title: 'Introduction To Flow.Js'});
-			const angular2 = await books.findOne({title: 'Angular 2 By Example'});
-			const functionalProgramming = await books.findOne({title: 'Functional Programming'});
-			const ecmaScript6 = await books.findOne({title: 'Introduction To EcmaScript 6'});
-			const reactJs = await books.findOne({title: 'Pro React'});
-			const expressJs = await books.findOne({title: 'Pro Express.js'});
-			const reactQuickly = await books.findOne({title: 'React Quickly'});
-			const mean = await books.findOne({title: 'Getting MEAN'});
-			const fullStackJavaScript = await books.findOne({title: 'Full Stack JavaScript'});
-			const backbone = await books.findOne({title: 'Learn Backbone.js'});
+			const cookHumans = books.findOne({title: 'How To Cook Humans'});
+			const cookForHumans = books.findOne({title: 'How To Cook For Humans'});
+			const cookFortyHumans = books.findOne({title: 'How To Cook Forty Humans'});
+			const cookForFortyHumans = books.findOne({title: 'How To Cook For Forty Humans'});
+			const eatingPeopleIsWrong = books.findOne({title: 'Eating People Is Wrong'});
+			const caffeine = books.findOne({title: 'Caffeine Killed My Family'});
+			const howToBeCool = books.findOne({title: 'How To Be Cool'});
+			const everythingIllegal = books.findOne({title: 'Everything I Want To Do Is Illegal'});
+			const wifeWidow = books.findOne({title: 'Teach Your Wife To Be A Widow'});
+			const goodParts = books.findOne({title: 'JavaScript The Good Parts'});
+			const tractors = books.findOne({title: 'Love, Sex and Tractors'});
+			const avoidHugeShips = books.findOne({title: 'How To Avoid Huge Ships'});
+			const artOfKnitting = books.findOne({title: 'The Manly Art Of Knitting'});
+			const practicalPyromaniac = books.findOne({title: 'The Practical Pyromaniac'});
+			const flagsPerCountry = books.findOne({title: 'Flags Per Country'});
+			const buildingAPIs = books.findOne({title: 'Building APIs With Node.js'});
+			const nodeWebDev = books.findOne({title: 'Node.JS Web Development'});
+			const nodeDesignPatterns = books.findOne({title: 'Node.js Desgin Patterns'});
+			const nodeRightWay = books.findOne({title: 'Node.js The Right Way'});
+			const fundamentalsNode = books.findOne({title: 'Fundamentals Of Node.js'});
+			const graphqlRelay = books.findOne({title: 'GraphQL and Relay'});
+			const startReactNative = books.findOne({title: 'Getting Started With React Native'});
+			const learningReactNative = books.findOne({title: 'Learning React Native'});
+			const typeScript = books.findOne({title: 'Pro TypeScript'});
+			const flowJS = books.findOne({title: 'Introduction To Flow.Js'});
+			const angular2 = books.findOne({title: 'Angular 2 By Example'});
+			const functionalProgramming = books.findOne({title: 'Functional Programming'});
+			const ecmaScript6 = books.findOne({title: 'Introduction To EcmaScript 6'});
+			const reactJs = books.findOne({title: 'Pro React'});
+			const expressJs = books.findOne({title: 'Pro Express.js'});
+			const reactQuickly = books.findOne({title: 'React Quickly'});
+			const mean = books.findOne({title: 'Getting MEAN'});
+			const fullStackJavaScript = books.findOne({title: 'Full Stack JavaScript'});
+			const backbone = books.findOne({title: 'Learn Backbone.js'});
+
+			// Theoretically, by the way the Node adds and processes events to its event-loop, all previous findeOne() calls will have
+			// finished by the time this last call has been awaited successfully. If this assumption turns to wrong, it can be fixed
+			// by adding await statements
 			const mern = await books.findOne({title: 'Pro MERN Stack'});
 
 
