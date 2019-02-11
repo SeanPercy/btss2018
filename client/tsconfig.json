@@ -1,16 +1,25 @@
 {
   "compilerOptions": {
-    "module": "es6",
-    "target": "es6",
-    "moduleResolution": "node",
-    "baseUrl": "src",
-    "allowSyntheticDefaultImports": true,
-    "noImplicitAny": false,
-    "sourceMap": true,
-    "outDir": "ts-build",
-    "jsx": "preserve"
+    "noEmit": true /* Most important thing: will not compile anything. Set to false, when using ts-loader with webpack */,
+    "jsx": "preserve" /* Do not compile your JSX */,
+    "allowSyntheticDefaultImports": true /* To import without "* as" */,
+    "alwaysStrict": true /* Parse in strict mode and emit "use strict" for each source file */,
+    "target": "esnext" /* Specify ECMAScript target version */,
+    "module": "esnext" /* Specify module code generation, needed here to fix TS1323 */ ,
+    "strictNullChecks": true /* You have to add "| null" in your type when needed */,
+    "strictFunctionTypes": true /* Enable strict checking of function types. */,
+    "noImplicitThis": true /* Raise error on 'this' expressions with an implied 'any' type. */,
+    "noUnusedLocals": true /* Report errors on unused locals. */,
+    "noUnusedParameters": true /* Report errors on unused parameters. */,
+    "noImplicitReturns": true /* Report error when not all code paths in function return a value. */,
+    "noFallthroughCasesInSwitch": true /* Report errors for fallthrough cases in switch statement. */,
+    "moduleResolution":
+    "node" /* Specify module resolution strategy: 'node' (Node.js) or 'classic' (TypeScript pre-1.6). */,
+    "baseUrl": "./src", /* Base directory to resolve non-absolute module names. */
+    "allowJs": true, /* Allow JavaScript files to be compiled. */
+    "checkJs": true /* Report errors in .js files. Use in conjunction with --allowJs */
   },
-  "exclude": [
-    "node_modules"
+  "include": [
+    "src"
   ]
 }

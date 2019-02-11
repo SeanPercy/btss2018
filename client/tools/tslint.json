@@ -1,0 +1,21 @@
+{
+  "defaultSeverity": "warning",
+  "extends": [
+    "tslint:latest",
+    "tslint-config-airbnb",
+    "tslint-eslint-rules",
+    "tslint-config-prettier"
+  ],
+  "linterOptions": {
+    "exclude": [
+      "../.idea/*",
+      "../cache/*",
+      "../dist/*",
+      "../node_modules/*",
+      "../src/*"
+    ]
+  },
+  "rules": {
+    "no-implicit-dependencies": [true, "dev"]
+  }
+}
