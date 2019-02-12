@@ -1,7 +1,8 @@
 .idea
-client/node_modules
 client/.idea
-client/ts-build
+client/cache
+client/dist
+client/node_modules
 database
 server/.idea
 server/node_modules

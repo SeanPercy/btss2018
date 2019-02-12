@@ -1,0 +1,23 @@
+{
+  "defaultSeverity": "warning",
+  "extends": [
+    "tslint:latest",
+    "tslint-react",
+    "tslint-eslint-rules",
+    "tslint-config-prettier"
+  ],
+  "jsRules": {
+    "indent": [true, "tabs"],
+    "no-trailing-whitespace": [true, "ignore-blank-lines"]
+  },
+  "linterOptions": {
+    "exclude": [
+      "registerServiceWorker.ts"
+    ]
+  },
+  "rules": {
+    // override tslint-react rules here
+    "jsx-wrap-multiline": false,
+    "no-implicit-dependencies": [true, "dev"]
+  }
+}

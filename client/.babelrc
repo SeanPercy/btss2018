@@ -1,0 +1,3 @@
+{
+  "extends": "./tools/babel.config.js"
+}

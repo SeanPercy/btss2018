@@ -1,0 +1,12 @@
+{
+  "restartable": "rs",
+  "verbose": true,
+  "watch": [
+    "tools/*"
+  ],
+  "ignore":[
+    "production.ts",
+    ".stylelintrc"
+  ],
+  "ext": "js,json,ts"
+}
