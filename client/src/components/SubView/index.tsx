@@ -1,7 +1,7 @@
 import React from "react";
 
-import "./index.scss";
 import * as logo from "./GraphQL_Logo.png";
+import "./index.scss";
 
 export interface IPropsInterface {
     counter: number;

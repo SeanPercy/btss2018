@@ -28,16 +28,16 @@
     "server": "npm run webpack-ts NODE_ENV=development webpack-dev-server",
     "server-autoreload": "nodemon --config tools/nodemon.json -x npm run server",
     "lint": "npm run lint:tsx && npm run lint:style",
-    "lint:tsx": "tslint -c src/tslint.json -p tsconfig.json",
+    "lint:tsx": "tslint -c src/tslint.json -p src/tsconfig.json",
     "lint:style": "stylelint src/**/*.scss --config tools/.stylelintrc --cache --cache-location cache/.stylelintcache/",
-    "lint:ts": "tslint -c tools/tslint.json -p tools/tsconfig-for-non-tsx.json"
+    "lint:ts": "tslint -c tools/tslint.json -p tools/tsconfig.json"
   },
   "sideEffects": [
     "*css",
     "*.scss"
   ],
   "config": {
-    "TS_NODE_PROJECT": "\"tools/tsconfig-for-non-tsx.json\""
+    "TS_NODE_PROJECT": "\"tsconfig.json\""
   },
   "devDependencies": {
     "@babel/core": "^7.2.0",
@@ -104,7 +104,7 @@
     "tslint-eslint-rules": "^5.4.0",
     "tslint-react": "^3.6.0",
     "tsutils": "^3.5.2",
-    "typescript": "^3.2.2",
+    "typescript": "^3.3.3",
     "uglifyjs-webpack-plugin": "^2.0.1",
     "url-loader": "^1.1.2",
     "webpack": "^4.27.1",

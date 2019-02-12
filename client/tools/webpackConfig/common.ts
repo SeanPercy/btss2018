@@ -1,7 +1,7 @@
-import * as path from "path";
+import path from "path";
 
-import * as Dotenv from "dotenv-webpack";
-import * as webpack from "webpack";
+import Dotenv from "dotenv-webpack";
+import webpack from "webpack";
 
 export const common: webpack.Configuration = {
     context: path.resolve(__dirname, "../../src"),

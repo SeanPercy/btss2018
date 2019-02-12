@@ -1,4 +1,4 @@
-import * as merge from "webpack-merge";
+import merge from "webpack-merge";
 
 import { common } from "./tools/webpackConfig/common";
 import { development } from "./tools/webpackConfig/development";
