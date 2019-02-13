@@ -1,7 +1,7 @@
 import bcrypt from 'bcrypt';
 import jwt from 'jsonwebtoken';
 
-import {pubsub, MESSAGE_CREATED, BOOK_CREATED, APP_SECRET} from '../utils';
+import {pubsub, AUTHOR_CREATED, MESSAGE_CREATED, BOOK_CREATED, APP_SECRET} from '../utils';
 
 export const Mutation =`
     type Mutation {
@@ -9,6 +9,7 @@ export const Mutation =`
         deleteAllMessages: Boolean
         login(credentials: UserLoginInput): AuthPayload
         signup(credentials: UserSignUpInput): AuthPayload
+        addAuthor(author: AuthorInput!): Author
     }
 `;
 
@@ -62,7 +63,12 @@ export const mutationResolvers = {
 	addMessage: (parent, { message }, context) => {
 		pubsub.publish(MESSAGE_CREATED, { messageCreated: message });
 		return context.models.mongo.Message.addMessage(message, context);
-	},/*
+	},
+	addAuthor: (parent, { author }, context) => {
+		pubsub.publish(AUTHOR_CREATED, { authorCreated: author });
+		return context.models.mongo.Author.addAuthor(author, context);
+	},
+	/*
 	addBook: (parent, { book }, context) => {
 		pubsub.publish(BOOK_CREATED, { bookCreated: book });
 		return context.models.mongo.Book.addBook(book, context);

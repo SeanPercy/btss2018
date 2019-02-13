@@ -1,6 +1,6 @@
 import React from "react";
 import ReactDom from "react-dom";
-import App from "./App";
+import Client from './Client';
 
 import "./styles/app.scss";
 
@@ -11,4 +11,4 @@ if (!root) {
     document.body.appendChild(root);
 }
 
-ReactDom.render(<App />, root);
+ReactDom.render(<Client />, root);

@@ -19,26 +19,22 @@
   ],
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "cc": "ts-node --project %npm_package_config_TS_NODE_PROJECT% tools/cleanCache.ts",
-    "webpack-ts": "cross-env TS_NODE_PROJECT=%npm_package_config_TS_NODE_PROJECT%",
+    "cc": "ts-node tools/cleanCache.ts",
     "prebuild": "npm run lint",
-    "build": "npm run webpack-ts NODE_ENV=production webpack",
+    "build": "cross-env NODE_ENV=production webpack",
     "pretest-build": "npm run build",
-    "test-build": "ts-node --project %npm_package_config_TS_NODE_PROJECT% test/testProductionBuild.ts",
-    "server": "npm run webpack-ts NODE_ENV=development webpack-dev-server",
+    "test-build": "ts-node test/testProductionBuild.ts",
+    "server": "cross-env NODE_ENV=development webpack-dev-server",
     "server-autoreload": "nodemon --config tools/nodemon.json -x npm run server",
     "lint": "npm run lint:tsx && npm run lint:style",
     "lint:tsx": "tslint -c src/tslint.json -p src/tsconfig.json",
     "lint:style": "stylelint src/**/*.scss --config tools/.stylelintrc --cache --cache-location cache/.stylelintcache/",
-    "lint:ts": "tslint -c tools/tslint.json -p tools/tsconfig.json"
+    "lint:ts": "tslint -c tools/tslint.json -p tsconfig.json"
   },
   "sideEffects": [
     "*css",
     "*.scss"
   ],
-  "config": {
-    "TS_NODE_PROJECT": "\"tsconfig.json\""
-  },
   "devDependencies": {
     "@babel/core": "^7.2.0",
     "@babel/plugin-proposal-class-properties": "^7.2.1",

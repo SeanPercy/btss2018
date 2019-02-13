@@ -2,7 +2,7 @@
 
 module.exports = exports = (api) => {
 	const isDevMode = api.env("development");
-	
+
 	const presets = [
 		[
 			"@babel/preset-env",
@@ -27,7 +27,7 @@ module.exports = exports = (api) => {
 	if (isDevMode) {
 		plugins.push("react-hot-loader/babel");
 	}
-	
+
 	return {
 		plugins,
 		presets,

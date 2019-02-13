@@ -1,7 +1,7 @@
 import jwt from 'jsonwebtoken';
-import config from '../server-config';
+import { serverConfig } from '../server-config';
 
-const APP_SECRET = config.jwt.secret;
+const { jwt: { secret: APP_SECRET } } = serverConfig;
 
 const getUser = (token) => {
 	const Authorization = token;

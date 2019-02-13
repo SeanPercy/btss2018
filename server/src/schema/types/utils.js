@@ -5,6 +5,7 @@ export { getUser, APP_SECRET } from '../../helpers/utils';
 
 /// SUBSCRIPTIONS
 export const pubsub = new PubSub();
+export const AUTHOR_CREATED = 'AUTHOR_CREATED';
 export const MESSAGE_CREATED = 'MESSAGE_CREATED';
 export const BOOK_CREATED = 'BOOK_CREATED';
 

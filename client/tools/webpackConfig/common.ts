@@ -65,7 +65,9 @@ export const common: webpack.Configuration = {
         publicPath: "/",
     },
     plugins: [
-        new Dotenv(),
+        new Dotenv({
+            path: path.resolve(__dirname, "../../.env.example"),
+        }),
     ],
     resolve: {
         extensions: [".css", ".scss", ".mjs", ".js", ".ts", ".jsx", ".tsx", ".json"],

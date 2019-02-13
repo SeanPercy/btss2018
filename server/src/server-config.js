@@ -1,33 +1,38 @@
 const {
-	DB_HOST,
-	DB_PORT,
+	APP_USER,
+	APP_PASSWORD,
+	APP_SECRET,
+	AUTH_MECHANISM,
+	MONGO_DATABASE,
+	MONGO_DB_HOST,
+	MONGO_DB_PORT,
 	SERVER_HOST,
 	SERVER_PATH,
 	SERVER_PORT,
-	DATABASE,
-	APP_USER,
-	APP_PASSWORD,
-	AUTH_MECHANISM,
-	APP_SECRET
 } = process.env;
 
-// below are the fallback default values, when running the app on Docker. When not using Docker the 'host' values have to be changed
-export default {
-	auth: {
-		password: APP_PASSWORD || 'app-password',
-		user: APP_USER || 'app-user'
-	},
-	authMechanism: AUTH_MECHANISM || 'DEFAULT',
+/*
+ * If the run with Docker, it takes care of setting environment variables.
+ * The hardcoded values display the settings if the backend(GraphQL-Server + database(s)) is run without Docker.
+ */
+export const serverConfig = {
 	db: {
-		host: DB_HOST || 'mongodb://mongo', //  Change it to 'mongodb://localhost' when not using Docker. 'mongo' refers to the Docker container's name inside docker-compose.*.yml
-		name: DATABASE || 'btss2018',
-		port: DB_PORT || '27017',
+		mongo: {
+			auth: {
+				password: APP_PASSWORD || 'app-password',
+				user: APP_USER || 'app-user',
+			},
+			authMechanism: AUTH_MECHANISM || 'DEFAULT',
+			host: MONGO_DB_HOST || 'mongodb://localhost',  // Docker sets MONGO_DB_HOST to 'mongodb://mongo'
+			name: MONGO_DATABASE || 'btss2018',
+			port: MONGO_DB_PORT || '27017',
+		},
 	},
 	jwt: {
 		secret: APP_SECRET || 'my_secret',
 	},
 	server: {
-		host: SERVER_HOST || '192.168.99.100',  // Change it to "localhost" when not using Docker
+		host: SERVER_HOST || 'localhost', // Docker sets SERVER_HOST to '192.168.99.100'
 		path: SERVER_PATH || '/graphql/',
 		port: SERVER_PORT || 4000,
 	}

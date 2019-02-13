@@ -3,53 +3,63 @@ import express from 'express';
 import { createServer } from 'http';
 import { MongoClient, Logger } from 'mongodb';
 
-import config from './server-config';
+import { serverConfig } from './server-config';
 import { seedDatabase } from './helpers/seedDatabase';
 import { createContext } from './context';
 import { executableSchema } from './schema';
 
 (async () => {
 
-	// CONNECT TO DATABASE
-	const mongoDB = await MongoClient
-		.connect(`${config.db.host}:${config.db.port}`, // Without Docker, connect to 'mongodb://localhost:${config.db.port}
+	const { db : { mongo }, server } = serverConfig;
+
+	/*
+	* CONNECT TO DATABASE
+	* On Docker, the connection string is 'mongodb://mongo:27017' ('mongo' refers to the container's name inside docker-compose.*.yml)
+	* When connected to a local (non-Docker) instance of MongoDB it is 'mongodb://localhost:27017'
+	*/
+	const mongodb = await MongoClient
+		.connect(`${mongo.host}:${mongo.port}`,
 			{
 				useNewUrlParser: true,
-				authSource: config.db.name,
+				authSource: mongo.name,
 				auth: {
-					user: config.auth.user,
-					password: config.auth.password
+					user: mongo.auth.user,
+					password: mongo.auth.password
 				},
-				authMechanism: config.authMechanism,
+				authMechanism: mongo.authMechanism,
 			})
 		.then(client => {
 			console.log('Connected correctly to database');
 			Logger.setLevel('error');
-			return client.db(config.db.name);
+			return client.db(mongo.name);
 		})
 		.catch((error) => {
 			console.log(error);
 		});
 
 	// DATABASE SEEDING
-	await seedDatabase(mongoDB)
+	await seedDatabase(mongodb)
 		.then(success => console.log(success))
 		.catch(e => console.log(e));
 
-	const server = new ApolloServer({
+	const apolloServer = new ApolloServer({
 		schema: executableSchema,
 		tracing: true,
 		cacheControl: true,
-		context: ({ req }) => createContext(req, mongoDB),
+		context: ({ req }) => createContext({ req, mongodb }),
 	});
 	
 	const app =  express();
+	apolloServer.applyMiddleware({ app, path: server.path });
+
 	const httpServer = createServer(app);
-	
-	server.applyMiddleware({ app, path: config.server.path });
-	server.installSubscriptionHandlers(httpServer);
-	httpServer.listen({ port: config.server.port }, () =>
-		// On Docker it should be 'http://192.168.99.100:4000/graphql/' Otherwise it is 'http://localhost:4000/graphql/'
-		console.log(`🚀 Server ready at http://${config.server.host}:${config.server.port}${config.server.path}`)
+	apolloServer.installSubscriptionHandlers(httpServer);
+
+	/*
+	* On Docker the GraphQL-Server is available on 'http://192.168.99.100:4000/graphql/'
+	* Without Docker it is available on 'http://localhost:4000/graphql/'
+	*/
+	httpServer.listen({ port: server.port }, () =>
+		console.log(`🚀 Server ready at http://${server.host}:${server.port}${server.path}`)
 	);
 })();
