@@ -18,8 +18,5 @@
     "baseUrl": "./", /* Base directory to resolve non-absolute module names. */
     "allowJs": true, /* Allow JavaScript files to be compiled. */
     "checkJs": true /* Report errors in .js files. Use in conjunction with --allowJs */
-  },
-  "include": [
-    ""
-  ]
+  }
 }

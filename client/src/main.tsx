@@ -1,6 +1,7 @@
 import React from "react";
 import ReactDom from "react-dom";
 import App from "./App";
+import registerServiceWorker from './registerServiceWorker';
 
 import "./styles/app.scss";
 
@@ -12,3 +13,5 @@ if (!root) {
 }
 
 ReactDom.render(<App />, root);
+
+registerServiceWorker();

@@ -1,22 +1,19 @@
-// @ts-ignore
 import bodyParser from 'body-parser';
 import cors from "cors";
-import * as dotenv from "dotenv";
-// @ts-ignore
+import dotenv from "dotenv";
 import express from "express";
-import * as path from "path";
+import path from "path";
 
 dotenv.config();
 
 const app = express();
-const port = process.env.TEST_PORT || 4000;
+const port = process.env.TEST_PORT || 4004;
 const root = path.join(__dirname, "../dist");
 
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(cors());
 app.use(express.static(root));
-app.set("port", port);
 
 app.get("/", (_, res) => {
     res.sendFile("index.html", { root });
