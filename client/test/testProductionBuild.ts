@@ -1,13 +1,13 @@
-import bodyParser from 'body-parser';
+import bodyParser from "body-parser";
 import cors from "cors";
-import dotenv from "dotenv";
 import express from "express";
 import path from "path";
 
-dotenv.config();
+import { clientConfig } from '../client-config';
+
+const { test: { port }, server: { host } } = clientConfig;
 
 const app = express();
-const port = process.env.TEST_PORT || 4004;
 const root = path.join(__dirname, "../dist");
 
 app.use(bodyParser.json());
@@ -20,7 +20,5 @@ app.get("/", (_, res) => {
 });
 
 app.listen(port, () => {
-    process.stdout.write(`Production Build is getting served on port ${port}\n`);
+    process.stdout.write(`Production Build is getting served on http://${host}:${port}\n`);
 });
-
-export default app;

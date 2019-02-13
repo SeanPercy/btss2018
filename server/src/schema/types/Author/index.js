@@ -9,6 +9,14 @@ export const Author =`
         retired: Boolean!
         books: [Book!]
     }
+    
+    input AuthorInput {
+       firstName: String!,
+       lastName: String!
+       age: Int!
+       sex: Sex!
+       retired: Boolean!
+    }
 `;
 
 export const authorResolvers = {

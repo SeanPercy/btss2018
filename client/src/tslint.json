@@ -10,14 +10,10 @@
     "indent": [true, "tabs"],
     "no-trailing-whitespace": [true, "ignore-blank-lines"]
   },
-  "linterOptions": {
-    "exclude": [
-      "registerServiceWorker.ts"
-    ]
-  },
   "rules": {
     // override tslint-react rules here
     "jsx-wrap-multiline": false,
-    "no-implicit-dependencies": [true, "dev"]
+    "no-implicit-dependencies": [true, "dev"],
+    "rules": { "curly": [true, "ignore-same-line"] }
   }
 }

@@ -37,7 +37,7 @@ class App extends React.Component<IAppPropsInterface, IAppStateInterface> {
     }
     // , webpackPrefetch: true
     private addSubView = (): void => {
-        import(/* webpackChunkName: "SubView" */ "./components/SubView/index")
+        import(/* webpackChunkName: "SubView" */ "../SubView/index")
             .then((module) => {
                 const Component = module.default;
                 this.setState({

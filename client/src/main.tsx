@@ -1,7 +1,6 @@
 import React from "react";
 import ReactDom from "react-dom";
-import App from "./App";
-import registerServiceWorker from './registerServiceWorker';
+import Client from './Client';
 
 import "./styles/app.scss";
 
@@ -12,6 +11,4 @@ if (!root) {
     document.body.appendChild(root);
 }
 
-ReactDom.render(<App />, root);
-
-registerServiceWorker();
+ReactDom.render(<Client />, root);
