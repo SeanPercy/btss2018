@@ -66,7 +66,7 @@ export const common: webpack.Configuration = {
     },
     plugins: [
         new Dotenv({
-            path: path.resolve(__dirname, "../../.env.example"),
+            path: path.resolve(__dirname, "../../...env"),
         }),
     ],
     resolve: {

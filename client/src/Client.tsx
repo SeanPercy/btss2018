@@ -12,12 +12,17 @@ import { BrowserRouter } from 'react-router-dom';
 import { SubscriptionClient } from 'subscriptions-transport-ws';
 
 import App from './components/App/App';
+import { clientConfig } from "../client-config";
 
 const AUTH_TOKEN = 'auth-token';
 
-const httpLink = createPersistedQueryLink().concat(createHttpLink({
-    uri: 'http://localhost:4000/graphql/'
-}));
+const { server: { host, path, port } } = clientConfig;
+
+// e.g. 'http://loacalhost:4000/graphql' or 'http://192.168.99.100:4000/graphql'
+const httpLink =
+    createPersistedQueryLink({ useGETForHashedQueries: true })
+    .concat(createHttpLink({ uri: `http://${host}:${port}${path}` }));
+// createPersistedQueryLink is reported to break refetchQueries in Mutations https://github.com/apollographql/apollo-link-persisted-queries/issues/33
 
 const authLink = setContext((_, { headers }) => {
     const token = localStorage.getItem(AUTH_TOKEN);
@@ -29,8 +34,10 @@ const authLink = setContext((_, { headers }) => {
     }
 });
 
+// e.g. 'ws://loacalhost:4000/graphql' or 'ws://192.168.99.100:4000/graphql'
 const subscriptionClient = new SubscriptionClient(
-    'ws://localhost:4000/graphql', {
+    `ws://${host}:${port}${path}`, {
+        connectionCallback: (error) => console.log('connectionCallback ', error),
         connectionParams: () => ({
             authToken: localStorage.getItem(AUTH_TOKEN),
         }),
@@ -38,15 +45,19 @@ const subscriptionClient = new SubscriptionClient(
         reconnect: true,
         timeout: 30000,
     });
-subscriptionClient.onConnecting(() => console.log('CONNECTING'));
-subscriptionClient.onConnected(() => console.log('CONNECTED to ws://localhost:4000/graphql/'));
-subscriptionClient.onDisconnected(() => console.log('DISCONNECTED from ws://localhost:4000/graphql/'));
-subscriptionClient.onReconnected(() => console.log('RECONNECTED to ws://localhost:4000/graphql/'));
-subscriptionClient.onReconnecting(()=> console.log('RECONNECTING to ws://localhost:4000/graphql/'));
+
+//For now only interesting for development purposes
+subscriptionClient.onConnecting(() => console.log(`CONNECTING to ws://${host}:${port}${path}`));
+subscriptionClient.onConnected(() => console.log(`CONNECTED to ws://${host}:${port}${path}`));
+subscriptionClient.onDisconnected(() => console.log(`DISCONNECTED from ws://${host}:${port}${path}`));
+subscriptionClient.onReconnected(() => console.log(`RECONNECTED to ws://${host}:${port}${path}`));
+subscriptionClient.onReconnecting(()=> console.log(`RECONNECTING to ws://${host}:${port}${path}`));
 subscriptionClient.onError((e)=> console.log('ERROR ',e) );
 
 const wsLink = new WebSocketLink(subscriptionClient);
 
+
+// Queries and Mutations are going to be handled by httpLink eventually, while wsLink takes care of Subscriptions
 const link = split(
     ({ query }) => {
         const { kind, operation } = getMainDefinition(query);

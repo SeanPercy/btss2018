@@ -2,13 +2,16 @@ import path from "path";
 
 import webpack from "webpack";
 
+import { clientConfig} from "../../client-config";
+const { dev: { host, port } } = clientConfig ;
+
 export const development: webpack.Configuration = {
     devServer: {
         contentBase: path.resolve(__dirname, "../../src"),
-        host: "localhost",
+        host,
         hotOnly: true,
         overlay: true,
-        port: 8080,
+        port,
         publicPath: "/",
         watchContentBase: true,
     },
