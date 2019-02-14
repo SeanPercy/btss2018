@@ -1,11 +1,11 @@
 import path from "path";
 
-// import { BundleAnalyzerPlugin } from "webpack-bundle-analyzer";
+//import { BundleAnalyzerPlugin } from "webpack-bundle-analyzer";
 import CleanWebpackPlugin from "clean-webpack-plugin";
 import HtmlWebpackPlugin from "html-webpack-plugin";
 import MiniCssExtractPlugin from "mini-css-extract-plugin";
 import OptimizeCssAssetsPlugin from "optimize-css-assets-webpack-plugin";
-import UglifyJsPlugin from "uglifyjs-webpack-plugin";
+import TerserWebpackPlugin from 'terser-webpack-plugin';
 import webpack from "webpack";
 
 export const production: webpack.Configuration = {
@@ -22,7 +22,7 @@ export const production: webpack.Configuration = {
     },
     optimization: {
         minimizer: [
-            new UglifyJsPlugin({
+            new TerserWebpackPlugin({
                 cache: true,
                 parallel: true,
                 sourceMap: true,
