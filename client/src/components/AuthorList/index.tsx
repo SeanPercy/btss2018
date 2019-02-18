@@ -1,6 +1,6 @@
 import gql from "graphql-tag";
 import React from "react";
-import { Query } from 'react-apollo';
+import { Query } from "react-apollo";
 
 export interface IAuthorListPropsInterface {}
 export interface IAuthorListStateInterface {}
@@ -17,6 +17,7 @@ const AUTHORS_QUERY = gql`
 const AUTHOR_CREATED = gql`
     subscription {
         authorCreated {
+            _id
             firstName
             lastName
             fullName
@@ -32,18 +33,17 @@ class AuthorList extends React.Component<IAuthorListPropsInterface, IAuthorListS
     public render(): JSX.Element {
         return (
             <Query query={AUTHORS_QUERY}>
-                {({ loading, error, data, subscribeToMore }) => {
+                {({ loading, error, data : { allAuthors }, subscribeToMore }) => {
                     if (loading) return <div>Fetching</div>;
                     if (error) return <div>Error</div>;
 
-                    this._subscribeToNewMessages(subscribeToMore);
+                    this._subscribeToNewAuthors(subscribeToMore);
 
-                    const authorsToRender = data.allAuthors;
                     return (
                         <>
                             <div>Here is the list</div>
                             <ol>
-                                {authorsToRender.map(author => <li key={author._id}>{author.fullName}</li>)}
+                                {allAuthors.map(author => <li key={author._id}>{author.fullName}</li>)}
                             </ol>
                         </>
                     )
@@ -52,15 +52,13 @@ class AuthorList extends React.Component<IAuthorListPropsInterface, IAuthorListS
         )
     }
 
-    private _subscribeToNewMessages = subscribeToMore => {
+    private _subscribeToNewAuthors = subscribeToMore => {
         subscribeToMore({
             document: AUTHOR_CREATED,
             updateQuery: (prev, { subscriptionData }) => {
-                console.log(prev);
-                console.log(subscriptionData.data.authorCreated);
                 if (!subscriptionData.data.authorCreated) return prev;
                 const newAuthor = subscriptionData.data.authorCreated;
-                console.log(newAuthor);
+
                 return Object.assign({}, prev, {
                     allAuthors: [newAuthor, ...prev.allAuthors]
                 });

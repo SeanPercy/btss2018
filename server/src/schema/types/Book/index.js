@@ -1,4 +1,6 @@
-export const Book =`
+import gql from 'graphql-tag';
+
+export const Book = gql`
 	type Book implements Node {
         _id: ID!
         title: String!

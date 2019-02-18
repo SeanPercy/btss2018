@@ -1,4 +1,6 @@
-export const Node =`
+import gql from 'graphql-tag';
+
+export const Node = gql`
     interface Node {
      _id: ID!
     }

@@ -1,4 +1,6 @@
-export const Author =`
+import gql from 'graphql-tag';
+
+export const Author = gql`
     type Author implements Node & Person {
         _id: ID!
         firstName: String!
@@ -9,9 +11,8 @@ export const Author =`
         retired: Boolean!
         books: [Book!]
     }
-    
     input AuthorInput {
-       firstName: String!,
+       firstName: String!
        lastName: String!
        age: Int!
        sex: Sex!

@@ -1,4 +1,6 @@
-export const User =`
+import gql from 'graphql-tag';
+
+export const User = gql`
     type User implements Node {
         _id: ID!
         username: String!
@@ -15,13 +17,13 @@ export const User =`
         token: String!
     }
     input UserSignUpInput {
-        username: String!,
-        email: String!,
+        username: String!
+        email: String!
         password: String!
         role: Role!
     }
     input UserLoginInput {
-        email: String!,
+        email: String!
         password: String!
     }
 `;

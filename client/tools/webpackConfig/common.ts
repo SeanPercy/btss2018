@@ -11,7 +11,7 @@ export const common: webpack.Configuration = {
             {
                 include: path.resolve(__dirname, "../../src"),
                 /* exclude could be used as an alternative to package.json field sideEffects to avoid
-                style-sheets beingtree-shaked in production mode*/
+                style-sheets being tree-shaked in production mode*/
                 // exclude: /\.scss$/i,
                 test: /\.(js|tsx?)$/i,
                 use: [{
@@ -57,6 +57,11 @@ export const common: webpack.Configuration = {
                         limit: 20000,
                     },
                 }],
+            },
+            {
+                test: /\.(graphql|gql)$/,
+                exclude: /node_modules/,
+                use: ["graphql-tag/loader"],
             },
         ],
     },

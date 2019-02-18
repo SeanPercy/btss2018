@@ -1,6 +1,8 @@
+import gql from 'graphql-tag';
+
 import { getUser, buildFilters } from '../utils';
 
-export const Query =`
+export const Query = gql`
     type Query {
         allAuthors: [Author!]
         allBooks: [Book!]

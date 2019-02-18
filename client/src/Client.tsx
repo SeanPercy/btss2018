@@ -11,8 +11,8 @@ import { ApolloProvider } from 'react-apollo';
 import { BrowserRouter } from 'react-router-dom';
 import { SubscriptionClient } from 'subscriptions-transport-ws';
 
-import App from './components/App/App';
 import { clientConfig } from "../client-config";
+import App from './components/App/App';
 
 const AUTH_TOKEN = 'auth-token';
 
@@ -54,8 +54,8 @@ subscriptionClient.onReconnected(() => console.log(`RECONNECTED to ws://${host}:
 subscriptionClient.onReconnecting(()=> console.log(`RECONNECTING to ws://${host}:${port}${path}`));
 subscriptionClient.onError((e)=> console.log('ERROR ',e) );
 
-const wsLink = new WebSocketLink(subscriptionClient);
 
+const wsLink = new WebSocketLink(subscriptionClient);
 
 // Queries and Mutations are going to be handled by httpLink eventually, while wsLink takes care of Subscriptions
 const link = split(

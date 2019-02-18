@@ -1,7 +1,8 @@
 import {GraphQLScalarType} from 'graphql';
 import {Kind} from 'graphql/language';
+import gql from 'graphql-tag';
 
-export const CustomDate =`
+export const CustomDate = gql`
     scalar CustomDate
     scalar Date
 `;

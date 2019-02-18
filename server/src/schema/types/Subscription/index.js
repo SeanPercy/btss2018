@@ -1,6 +1,8 @@
+import gql from 'graphql-tag';
+
 import { pubsub, AUTHOR_CREATED, MESSAGE_CREATED, BOOK_CREATED } from '../utils';
 
-export const Subscription =`
+export const Subscription = gql`
     type Subscription {
         authorCreated: Author
         messageCreated: Message

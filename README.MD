@@ -5,10 +5,16 @@ The code is far from being finished and will continuously be improved. Feel free
 
 ## Set up and Start
 
-This app can be run either with or without Docker
+This app can be run either with or without Docker. It contains a client and a server application.
+The client relies on the server, while the server does not rely on the client.
 
-#### With Docker
-If you want to use it with Docker, start Docker and navigate into the project's root folder 
+#### Run the Client
+
+Make sure the server is running, navigate into the client's root directory and either run `npm run server`
+or `npm run test-build`
+
+#### Run the Server with Docker
+If you want to run the server with Docker, start Docker and navigate into the project's root folder 
 and execute:
 ```bash
 docker-compose -f docker-compose-server-only.yml up
@@ -20,8 +26,8 @@ If you want to clean up after the project, simply run:
 docker-compose -f docker-compose-server-only.yml down
 ```
 
-#### Without Docker
-To use the app without Docker, you will need a running MongoDB instance on you machine to connect to. 
+#### Run the Server without Docker
+To use the server without Docker, you will need a running MongoDB instance on you machine to connect to. 
 
 Hint: You will have to start `mongod.exe` and `mongo.exe` both in separate Terminal processes.
 
@@ -57,9 +63,13 @@ values of the `server/server-config.js` file as recommend there. (Check the comm
 
 ## Use the app
 
-Once the app has started successfully, open either `192.168.99.100:4000/graphql/` or `localhost:4000/graphql/` inside your browser.
+Once the app has started successfully, open either `192.168.99.100:4000/graphql/` or `localhost:4000/graphql/` inside your browser to use
+the in-build playground client provided by Apollo Server or navigate to the address where the client is running.
 
-Some operations, especially deletions and edits, require you to be logged in to the app, which requires you to sign up first.
+
+#### Use it with Apollo Playground 
+
+Some operations, especially deletions and edits, require you to be logged in to the app, which requires you to sign up first. 
 
 For signing up, paste this into `QUERY VARIABLES` field:
 ```graphql
@@ -132,7 +142,7 @@ and paste the `token` right behind `Bearer`.
 }
  ```
  
- Now you are able to run operations that require authorization.
+Now you are able to run operations that require authorization.
  
  
  FRIENDLY DISCLAIMER: I DO NOT TAKE ANY RESPONSIBILITY FOR ANY PROBLEMS OR ERRORS THAT MIGHT RESULT FROM REUSING MY CODE BY OTHERS.

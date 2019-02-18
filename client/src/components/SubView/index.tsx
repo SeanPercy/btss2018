@@ -8,7 +8,7 @@ import "./style.scss";
 export interface IPropsInterface {
     counter: number;
 }
-const SubView: React.FC<IPropsInterface> = ({ counter }) => (
+const SubView: React.FC<{counter: number}> = ({ counter }) => (
     <>
         <div className="alert alert-info">
             This is a subview created when the counter was {counter}

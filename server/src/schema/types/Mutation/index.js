@@ -1,9 +1,10 @@
 import bcrypt from 'bcrypt';
 import jwt from 'jsonwebtoken';
+import gql from 'graphql-tag';
 
 import {pubsub, AUTHOR_CREATED, MESSAGE_CREATED, BOOK_CREATED, APP_SECRET} from '../utils';
 
-export const Mutation =`
+export const Mutation = gql`
     type Mutation {
         addMessage(message: MessageInput!): Message
         deleteAllMessages: Boolean

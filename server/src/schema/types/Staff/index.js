@@ -1,4 +1,6 @@
-export const Staff =`
+import gql from 'graphql-tag';
+
+export const Staff = gql`
     type Staff implements Node & Person {
         _id: ID!
         firstName: String!

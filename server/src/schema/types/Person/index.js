@@ -1,4 +1,6 @@
-export const Person =`
+import gql from 'graphql-tag';
+
+export const Person = gql`
     interface Person {
         firstName: String!
         lastName: String!
