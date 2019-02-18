@@ -1,0 +1,6 @@
+query {
+    allStaff {
+        _id
+        fullName
+    }
+}

@@ -1,0 +1,6 @@
+subscription {
+    staffCreated {
+        _id
+        fullName
+    }
+}

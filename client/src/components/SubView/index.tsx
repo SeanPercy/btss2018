@@ -1,20 +1,18 @@
 import React from "react";
 
-import AuthorList from "components/AuthorList";
-
 import * as logo from "./GraphQL_Logo.png";
 import "./style.scss";
 
-export interface IPropsInterface {
+export interface ISubviewPropsInterface {
     counter: number;
 }
-const SubView: React.FC<{counter: number}> = ({ counter }) => (
+
+const SubView: React.FC<ISubviewPropsInterface> = ({ counter }) => (
     <>
         <div className="alert alert-info">
             This is a subview created when the counter was {counter}
         </div>
-        <AuthorList/>
-        <p className="stub">This is just a stub for now</p>
+        <p className="stub">It serves as an example for Dynamic Imports</p>
         <img src={logo}/>
     </>
 );

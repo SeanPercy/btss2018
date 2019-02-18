@@ -12,7 +12,7 @@ import { BrowserRouter } from 'react-router-dom';
 import { SubscriptionClient } from 'subscriptions-transport-ws';
 
 import { clientConfig } from "../client-config";
-import App from './components/App/App';
+import App from './components/App/';
 
 const AUTH_TOKEN = 'auth-token';
 

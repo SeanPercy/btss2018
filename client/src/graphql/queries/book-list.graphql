@@ -1,5 +1,9 @@
 query {
     allBooks {
+        _id
+        author {
+            fullName
+        }
         title
     }
 }

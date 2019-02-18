@@ -1,38 +1,18 @@
-import gql from "graphql-tag";
 import React from "react";
 import { Query } from "react-apollo";
+import {DocumentNode} from "apollo-link";
+
+const authorListQuery: DocumentNode = require("../../graphql/queries/author-list.graphql");
+const authorCreatedSubscription: DocumentNode = require("../../graphql/subscriptions/author-created.graphql");
 
 export interface IAuthorListPropsInterface {}
 export interface IAuthorListStateInterface {}
-
-const AUTHORS_QUERY = gql`
-   query {
-        allAuthors {
-            _id
-            fullName
-            age
-        }
-    }`;
-
-const AUTHOR_CREATED = gql`
-    subscription {
-        authorCreated {
-            _id
-            firstName
-            lastName
-            fullName
-            age
-            sex
-            retired
-        }
-    }
-`;
 
 class AuthorList extends React.Component<IAuthorListPropsInterface, IAuthorListStateInterface> {
 
     public render(): JSX.Element {
         return (
-            <Query query={AUTHORS_QUERY}>
+            <Query query={authorListQuery}>
                 {({ loading, error, data : { allAuthors }, subscribeToMore }) => {
                     if (loading) return <div>Fetching</div>;
                     if (error) return <div>Error</div>;
@@ -40,12 +20,9 @@ class AuthorList extends React.Component<IAuthorListPropsInterface, IAuthorListS
                     this._subscribeToNewAuthors(subscribeToMore);
 
                     return (
-                        <>
-                            <div>Here is the list</div>
-                            <ol>
-                                {allAuthors.map(author => <li key={author._id}>{author.fullName}</li>)}
-                            </ol>
-                        </>
+                        <ol>
+                            {allAuthors.map(author => <li key={author._id}>{author.fullName}</li>)}
+                        </ol>
                     )
                 }}
             </Query>
@@ -54,7 +31,7 @@ class AuthorList extends React.Component<IAuthorListPropsInterface, IAuthorListS
 
     private _subscribeToNewAuthors = subscribeToMore => {
         subscribeToMore({
-            document: AUTHOR_CREATED,
+            document: authorCreatedSubscription,
             updateQuery: (prev, { subscriptionData }) => {
                 if (!subscriptionData.data.authorCreated) return prev;
                 const newAuthor = subscriptionData.data.authorCreated;
