@@ -2,14 +2,15 @@
 import React from "react";
 import { hot } from "react-hot-loader";
 
-export interface IHomePropsInterface {}
 export interface IHomeStateInterface {
     counter: number;
     subView: JSX.Element | null;
 }
 
-class Index extends React.Component<IHomePropsInterface, IHomeStateInterface> {
-    public state = {
+type HomeState = Readonly<IHomeStateInterface>
+
+class Index extends React.Component<{}, HomeState> {
+    public readonly state: HomeState = {
         counter: 0,
         subView: null,
     };

@@ -1,45 +1,35 @@
 import React from "react";
-import { Query } from "react-apollo";
-import {DocumentNode} from "apollo-link";
+import { compose, graphql } from "react-apollo";
 
-const staffListQuery: DocumentNode = require("../../graphql/queries/staff-list.graphql");
-const staffCreatedSubscription: DocumentNode = require("../../graphql/subscriptions/staff-created.graphql");
+import STAFF_LIST_QUERY from "graphql/queries/staff-list.graphql";
+import STAFF_CREATED_SUB from "graphql/subscriptions/staff-created.graphql";
+import { getPropsAndOptions, renderForError, renderWhileLoading } from "helpers";
 
-class StaffList extends React.Component<{},{}> {
+
+export interface IStaffListPropsInterface {
+    allStaff: Array<{_id: string, fullName: string, age: number}>
+    subscribeToNewItems: () => void,
+}
+
+class StaffList extends React.Component<IStaffListPropsInterface,{}> {
+    public componentDidMount() {
+        this.props.subscribeToNewItems();
+    }
 
     public render(): JSX.Element {
         return (
-            <Query query={staffListQuery}>
-                {({ loading, error, data : { allStaff }, subscribeToMore }) => {
-                    if (loading) return <div>Fetching</div>;
-                    if (error) return <div>Error</div>;
-
-                    this._subscribeToNewStaff(subscribeToMore);
-
-                    return (
-                        <ol>
-                            {allStaff.map(staff => <li key={staff._id}>{staff.fullName}</li>)}
-                        </ol>
-                    )
-                }}
-            </Query>
+            <ol>
+                {this.props.allStaff.map(staff => <li key={staff._id}>{staff.fullName}</li>)}
+            </ol>
         )
     }
-
-    private _subscribeToNewStaff = subscribeToMore => {
-        subscribeToMore({
-            document: staffCreatedSubscription,
-            updateQuery: (prev, { subscriptionData }) => {
-                if (!subscriptionData.data.staffCreated) return prev;
-                const newStaff = subscriptionData.data.staffCreated;
-
-                return Object.assign({}, prev, {
-                    allStaff: [newStaff, ...prev.allStaff]
-                });
-            }
-        })
-    }
-
 }
 
-export default StaffList;
+export default compose(
+    graphql(
+        STAFF_LIST_QUERY,
+        getPropsAndOptions(STAFF_CREATED_SUB, 'staffCreated', 'allStaff')
+    ),
+    renderWhileLoading(),
+    renderForError()
+)(StaffList);

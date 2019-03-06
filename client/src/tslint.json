@@ -14,6 +14,7 @@
     // override tslint-react rules here
     "jsx-wrap-multiline": false,
     "no-implicit-dependencies": [true, "dev"],
-    "rules": { "curly": [true, "ignore-same-line"] }
+    "curly": [true, "ignore-same-line"],
+    "no-submodule-imports": false
   }
 }

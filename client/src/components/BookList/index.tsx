@@ -1,48 +1,88 @@
 import React from "react";
-import { Query } from "react-apollo";
-import {DocumentNode} from "apollo-link";
+import { compose, graphql } from "react-apollo";
 
-const bookListQuery: DocumentNode = require("../../graphql/queries/book-list.graphql");
-const bookCreatedSubscription: DocumentNode = require("../../graphql/subscriptions/book-created.graphql");
+// import BOOK_LIST_QUERY from "graphql/queries/book-list.graphql";
+import gql from "graphql-tag";
+import BOOK_CREATED_SUB from "graphql/subscriptions/book-created.graphql";
+import { _subscribeToNewItems, renderForError, renderWhileLoading } from "helpers";
 
-export interface IBooksListPropsInterface {}
-export interface IBookListStateInterface {}
 
-class BookList extends React.Component<IBooksListPropsInterface, IBookListStateInterface> {
+export interface IBookListPropsInterface {
+    books: Array<{_id: string, title: string}>
+    subscribeToNewItems: () => void,
+    loadMoreBooks: () => void
+}
+
+class BookList extends React.Component<IBookListPropsInterface, {}> {
+    public componentDidMount() {
+        this.props.subscribeToNewItems();
+    }
 
     public render(): JSX.Element {
         return (
-            <Query query={bookListQuery}>
-                {({ loading, error, data : { allBooks }, subscribeToMore }) => {
-            if (loading) return <div>Fetching</div>;
-            if (error) return <div>Error</div>;
-
-            this._subscribeToNewBooks(subscribeToMore);
-
-            return (
+            <>
                 <ol>
-                    {allBooks.map(book => <li key={book._id}>{book.title}</li>)}
+                    {this.props.books.map(book => <li key={book._id}>{book.title}</li>)}
                 </ol>
-            )
-                }}
-            </Query>
-    )
+                <button type="button" className="btn btn-secondary" onClick={() => this.props.loadMoreBooks()}>
+                    Load More Books
+                </button>
+            </>
+        )
     }
-
-    private _subscribeToNewBooks = subscribeToMore => {
-        subscribeToMore({
-            document: bookCreatedSubscription,
-            updateQuery: (prev, { subscriptionData }) => {
-                if (!subscriptionData.data.bookCreated) return prev;
-                const newBook = subscriptionData.data.bookCreated;
-
-                return Object.assign({}, prev, {
-                    allBooks: [newBook, ...prev.allBooks]
-                });
-            }
-        })
-    }
-
 }
 
-export default BookList;
+const getOptionsAndProps = (collection: string) => {
+
+    return {
+        options:{
+            variables: {
+                limit: 10,
+                skip: 0,
+            }
+        },
+        props: (props) => {
+            const {data} = props;
+            const subscribeToNewItems = _subscribeToNewItems(data, BOOK_CREATED_SUB, 'bookCreated', collection);
+            return ({
+                ...data,
+                [collection]: data[collection] ? data[collection] : [],
+                loadMoreBooks:() =>
+                    data.fetchMore({
+                        updateQuery: (prev, { fetchMoreResult }) => {
+                            if (!fetchMoreResult) return prev;
+                            return {
+                                [collection]: [
+                                    ...prev[collection],
+                                    ...fetchMoreResult[collection]
+                                ],
+                            };
+                        },
+                        variables: {
+                            skip: data[collection].length
+                        },
+                    }),
+                subscribeToNewItems,
+            })
+        }
+
+    };
+};
+
+const BOOK_LIST_QUERY = gql`
+    query($skip: Int, $limit: Int){
+    books(skip: $skip, limit:$limit) {
+        _id
+        title
+    }
+}`
+
+export default compose(
+    graphql(
+        BOOK_LIST_QUERY,
+        getOptionsAndProps('books')
+    ),
+    renderWhileLoading(),
+    renderForError()
+)(BookList);
+

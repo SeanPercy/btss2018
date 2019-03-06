@@ -8,6 +8,7 @@ const { dev: { host, port } } = clientConfig ;
 export const development: webpack.Configuration = {
     devServer: {
         contentBase: path.resolve(__dirname, "../../src"),
+        historyApiFallback: true,
         host,
         hotOnly: true,
         overlay: true,

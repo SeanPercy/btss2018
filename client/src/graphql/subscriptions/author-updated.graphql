@@ -1,0 +1,11 @@
+subscription {
+    authorUpdated {
+        _id
+        firstName
+        lastName
+        fullName
+        age
+        sex
+        retired
+    }
+}
