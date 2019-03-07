@@ -1,4 +1,6 @@
 /*eslint no-console: "error"*/
+import bcrypt from 'bcrypt';
+
 import dateGen from './dateGenerator';
 
 const seedDatabase = (database) => {
@@ -21,20 +23,31 @@ const seedDatabase = (database) => {
 
 		// RECREATE COLLECTIONS ON RESTART OF THE APP
 		Promise.all([
+			database.createCollection('users'),
 			database.createCollection('authors'),
 			database.createCollection('books'),
 			database.createCollection('staff'),
-			database.createCollection('users')
 		])
-			.then(([authors, books, staff]) => {
-				console.log('Created new collections for current session.');
+			.then(([users, authors, books, staff]) => {
+				console.log('Create new collections for current session.');
 				createStaff(staff)
+					.then(() => createAdmin(users))
 					.then(() => createAuthors(authors))
 					.then(() => createBooks(authors, books))
 					.then(() => resolve('Database seeding successful.'))
 					.catch(e => reject(e));
 			})
 			.catch(e => reject(e));
+
+		async function createAdmin(users) {
+			const password = await bcrypt.hash('Password123', 10);
+			await users.insertOne({
+				username: "Admin",
+				email: "admin@app.com",
+				password,
+				role: "ADMIN",
+			});
+		}
 
 		async function createStaff(staff) {
 			//MANAGEMENT DEPARTMENT

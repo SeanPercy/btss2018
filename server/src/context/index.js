@@ -1,5 +1,5 @@
 import { MongoDBConnector } from '../connectors/index';
-import { Author, Book, Staff, User, Message } from '../models/mongo/index';
+import { Author, Book, Staff, User } from '../models/mongo/index';
 import buildMongoLoader from '../dataloaders/mongo/index';
 import { getUser } from '../helpers/utils';
 
@@ -9,6 +9,8 @@ export function createContext({ req, mongodb }) {
 	}
 	const token = req.headers.authorization || '';
 	const user = getUser(token);
+
+	// Name of the connector that gets passed to the models
 	const mongo = 'mongo';
 
 	return {
@@ -21,7 +23,6 @@ export function createContext({ req, mongodb }) {
 				Book: new Book({ db: mongo, collection: 'books'  }),
 				Staff: new Staff({ db: mongo, collection: 'staff'  }),
 				User: new User({ db: mongo, collection: 'users' }),
-				Message: new Message({ db: mongo, collection: 'messages' }),
 			},
 		},
 		dataLoaders: {

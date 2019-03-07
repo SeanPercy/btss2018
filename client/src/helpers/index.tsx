@@ -53,6 +53,8 @@ export const _subscribeToUpdatedItems = (data: any, SUBSCRIPTION_QUERY: string, 
     })
 };
 
+/*
+For further abstraction
 
 export const getPropsAndOptions = (subscription: string, itemCreated: string, collection: string) => ({
     props: (props) => {
@@ -67,32 +69,4 @@ export const getPropsAndOptions = (subscription: string, itemCreated: string, co
     }
 });
 
-
-/*
-
-export const getPropsAndOptions = (subscription: string, itemCreated: string, collection: string) => ({
-    props: (props) => {
-        const { data } = props;
-        const subscribeToNewItems = _subscribeToNewItems(data, subscription, itemCreated, collection)
-
-        return ({
-            ...data,
-            [collection]: data[collection] ? data[collection] : [],
-            subscribeToNewItems: () => {
-                data.subscribeToMore({
-                    document: subscription,
-                    updateQuery: (prev, { subscriptionData }) => {
-                        if (!subscriptionData.data) return prev;
-                        return {
-                            [collection]: [
-                                ...prev[collection],
-                                subscriptionData.data[itemCreated]
-                            ],
-                        };
-                    },
-                })
-            },
-        })
-    }
-});
- */
+*/

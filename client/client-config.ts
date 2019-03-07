@@ -9,13 +9,13 @@ const {
 } = process.env;
 
 /*
- * If the run with Docker, it takes care of setting environment variables.
+ * If run with Docker, it takes care of setting environment variables.
  * The hardcoded values display the settings if the backend(GraphQL-Server + database(s)) is run without Docker.
  */
 export const clientConfig = {
     dev: {
         host: DEV_HOST || 'localhost',
-        port: +DEV_PORT|| 8080,             // type coercion of DEV_PORT to number
+        port: +DEV_PORT || 8080,             // type coercion of DEV_PORT to number
     },
     jwt: {
         secret: APP_SECRET || 'my_secret',

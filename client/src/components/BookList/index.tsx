@@ -32,9 +32,8 @@ class BookList extends React.Component<IBookListPropsInterface, {}> {
     }
 }
 
-const getOptionsAndProps = (collection: string) => {
-
-    return {
+const getOptionsAndProps = (collection: string) => (
+    {
         options:{
             variables: {
                 limit: 10,
@@ -42,7 +41,7 @@ const getOptionsAndProps = (collection: string) => {
             }
         },
         props: (props) => {
-            const {data} = props;
+            const { data } = props;
             const subscribeToNewItems = _subscribeToNewItems(data, BOOK_CREATED_SUB, 'bookCreated', collection);
             return ({
                 ...data,
@@ -65,9 +64,8 @@ const getOptionsAndProps = (collection: string) => {
                 subscribeToNewItems,
             })
         }
-
-    };
-};
+    }
+);
 
 const BOOK_LIST_QUERY = gql`
     query($skip: Int, $limit: Int){
@@ -75,7 +73,7 @@ const BOOK_LIST_QUERY = gql`
         _id
         title
     }
-}`
+}`;
 
 export default compose(
     graphql(
@@ -85,4 +83,3 @@ export default compose(
     renderWhileLoading(),
     renderForError()
 )(BookList);
-

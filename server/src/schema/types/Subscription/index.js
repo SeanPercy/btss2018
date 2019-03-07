@@ -1,11 +1,11 @@
 import gql from 'graphql-tag';
 
-import { pubsub, AUTHOR_CREATED, MESSAGE_CREATED, BOOK_CREATED } from '../utils';
+import { pubsub, AUTHOR_CREATED, AUTHOR_UPDATED, BOOK_CREATED } from '../utils';
 
 export const Subscription = gql`
     type Subscription {
         authorCreated: Author
-        messageCreated: Message
+	    authorUpdated: Author
         bookCreated: Book
     }
 `;
@@ -14,8 +14,8 @@ export const subscriptionResolvers = {
 	authorCreated: {
 		subscribe: () => pubsub.asyncIterator([AUTHOR_CREATED])
 	},
-	messageCreated: {
-		subscribe: () => pubsub.asyncIterator([MESSAGE_CREATED]),
+	authorUpdated: {
+		subscribe: () => pubsub.asyncIterator([AUTHOR_UPDATED])
 	},
 	bookCreated: {
 		subscribe: () => pubsub.asyncIterator([BOOK_CREATED]),

@@ -2,15 +2,14 @@ import bcrypt from 'bcrypt';
 import jwt from 'jsonwebtoken';
 import gql from 'graphql-tag';
 
-import {pubsub, AUTHOR_CREATED, MESSAGE_CREATED, BOOK_CREATED, APP_SECRET} from '../utils';
+import {pubsub, AUTHOR_CREATED, MESSAGE_CREATED, BOOK_CREATED, APP_SECRET, AUTHOR_UPDATED} from '../utils';
 
 export const Mutation = gql`
     type Mutation {
-        addMessage(message: MessageInput!): Message
-        deleteAllMessages: Boolean
         login(credentials: UserLoginInput): AuthPayload
         signup(credentials: UserSignUpInput): AuthPayload
         addAuthor(author: AuthorInput!): Author
+	    updateAuthor(author: AuthorUpdateInput!): Author
     }
 `;
 
@@ -39,7 +38,7 @@ export const mutationResolvers = {
 	login: async(parent, { credentials }, context) => {
 		const user = await context.models.mongo.User.getByEmail(credentials.email, context);
 		if (!user) {
-			throw new Error('No user with that email');
+			return new Error('No user with that email');
 		}
 		
 		const valid = await bcrypt.compare(credentials.password, user.password);
@@ -61,20 +60,20 @@ export const mutationResolvers = {
 		
 		return { user, token };
 	},
-	addMessage: (parent, { message }, context) => {
-		pubsub.publish(MESSAGE_CREATED, { messageCreated: message });
-		return context.models.mongo.Message.addMessage(message, context);
-	},
 	addAuthor: (parent, { author }, context) => {
-		pubsub.publish(AUTHOR_CREATED, { authorCreated: author });
-		return context.models.mongo.Author.addAuthor(author, context);
+		if (!context.user || !context.user.role === 'ADMIN') return new Error('Not Authorizied');
+		return context.models.mongo.Author.addAuthor(author, context)
+			.then(newAuthor => {
+				pubsub.publish(AUTHOR_CREATED, { authorCreated: newAuthor });
+				return newAuthor;
+		});
 	},
-	/*
-	addBook: (parent, { book }, context) => {
-		pubsub.publish(BOOK_CREATED, { bookCreated: book });
-		return context.models.mongo.Book.addBook(book, context);
-	},*/
-	deleteAllMessages: (parent, _, context) => {
-		return context.models.mongo.Message.deleteAll(context);
+	updateAuthor: (parent, { author }, context) => {
+		if (!context.user || !context.user.role === 'ADMIN') return new Error('Not Authorizied');
+		return context.models.mongo.Author.updateAuthor(author, context)
+			.then(updatedAuthor => {
+				pubsub.publish(AUTHOR_UPDATED, { authorUpdated: updatedAuthor });
+				return updatedAuthor;
+			});
 	}
 };

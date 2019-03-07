@@ -18,6 +18,15 @@ export const Author = gql`
        sex: Sex!
        retired: Boolean!
     }
+	input AuthorUpdateInput {
+		_id: ID!,
+        firstName: String
+        lastName: String
+        fullName: String
+        age: Int
+        sex: Sex
+        retired: Boolean
+	}
 `;
 
 export const authorResolvers = {

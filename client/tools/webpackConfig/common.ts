@@ -1,6 +1,6 @@
 import path from "path";
 
-import Dotenv from "dotenv-webpack";
+import { Dotenv } from "dotenv-webpack";
 import webpack from "webpack";
 
 export const common: webpack.Configuration = {
@@ -59,8 +59,8 @@ export const common: webpack.Configuration = {
                 }],
             },
             {
-                test: /\.(graphql|gql)$/,
                 exclude: /node_modules/,
+                test: /\.(graphql|gql)$/,
                 use: ["graphql-tag/loader"],
             },
         ],

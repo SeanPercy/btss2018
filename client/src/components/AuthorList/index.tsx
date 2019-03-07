@@ -12,17 +12,13 @@ export interface IAuthorListPropsInterface {
     subscribeToUpdatedItems: () => void
 }
 
-class AuthorList extends React.Component<IAuthorListPropsInterface, {    allAuthors: Array<{_id: string, fullName: string, age: number}>
-}> {
-    public constructor(props){
+class AuthorList extends React.Component<IAuthorListPropsInterface, {}> {
+    public constructor(props) {
         super(props);
-        this.state={
-            allAuthors: []
-        }
     }
 
     public componentDidMount() {
-        this.setState({allAuthors: this.props.allAuthors})
+        this.setState({allAuthors: this.props.allAuthors});
         this.props.subscribeToNewItems();
         this.props.subscribeToUpdatedItems();
     }
@@ -34,28 +30,10 @@ class AuthorList extends React.Component<IAuthorListPropsInterface, {    allAuth
             </ol>
         )
     }
-/*
-    public static getDerivedStateFromProps(props, state) {
-        console.log('DERIVED');
-        function removeDuplicates(myArr, prop) {
-            return myArr.filter((obj, pos, arr) => {
-                return arr.map(mapObj => mapObj[prop]).indexOf(obj[prop]) === pos;
-            });
-        }
-
-        const authors = removeDuplicates(props.allAuthors, '_id');
-
-            return {
-                allAuthors: authors,
-            }
-
-    }*/
-
 }
 
-const getOptionsAndProps = (collection: string) => {
-
-    return {
+const getOptionsAndProps = (collection: string) => (
+    {
         options:{
             pollInterval: 30000,
         },
@@ -69,9 +47,8 @@ const getOptionsAndProps = (collection: string) => {
                 subscribeToUpdatedItems
             })
         }
-
-    };
-};
+    }
+);
 
 
 export default compose(
@@ -82,32 +59,3 @@ export default compose(
     renderWhileLoading(),
     renderForError()
 )(AuthorList);
-
-
-/*
-export default compose(
-    graphql(authorListQuery, {
-        props: props => {
-            console.log('PROPS ', props);
-            return ({
-                allAuthors: props.data.allAuthors ? props.data.allAuthors : [],
-                subscribeToNewItems: params => {
-                    props.data.subscribeToMore({
-                        document: authorCreatedSubscription,
-                        updateQuery: (prev, { subscriptionData }) => {
-                            console.log('SUB ',subscriptionData);
-
-                            if (!subscriptionData.data) return prev;
-                            return {
-                                allAuthors: [
-                                    subscriptionData.data.authorCreated,
-                                    ...prev.allAuthors
-                                ],
-                            };
-                        },
-                    })
-                }})
-        }
-    })
-)(AuthorList)
-*/

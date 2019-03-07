@@ -14,14 +14,10 @@ export const Book = gql`
         PROGRAMMING
         NOVEL
     }
-    type BookFeed {
-	    cursor: String!
-        books: [Book]!
-    }
-    input BookFilterInput {
-	  OR: [BookFilterInput!]
-	  title_contains: String
-	  genre_contains: String
+	input BookInput {
+        title: String!
+        author: ID!
+        genre: Genre!
 	}
 `;
 

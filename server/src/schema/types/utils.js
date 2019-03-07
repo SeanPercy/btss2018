@@ -6,8 +6,11 @@ export { getUser, APP_SECRET } from '../../helpers/utils';
 /// SUBSCRIPTIONS
 export const pubsub = new PubSub();
 export const AUTHOR_CREATED = 'AUTHOR_CREATED';
+export const AUTHOR_UPDATED = 'AUTHOR_UPDATED';
 export const MESSAGE_CREATED = 'MESSAGE_CREATED';
 export const BOOK_CREATED = 'BOOK_CREATED';
+export const STAFF_CREATED = 'STAFF_CREATED';
+
 
 /// FILTERS
 export const buildFilters = ({OR = [], content_contains, info_contains})=> {

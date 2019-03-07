@@ -1,10 +1,10 @@
-import merge from "webpack-merge";
+import webpackMerge from "webpack-merge";
 
 import { common } from "./tools/webpackConfig/common";
 import { development } from "./tools/webpackConfig/development";
 import { production } from "./tools/webpackConfig/production";
 
-const mergeConfigs = (mode) => merge.smart(mode, common);
+const mergeConfigs = (mode) => webpackMerge.smart(mode, common);
 
 const buildConfig = () => {
     const mode = process.env.NODE_ENV;
