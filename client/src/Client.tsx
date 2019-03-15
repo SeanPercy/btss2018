@@ -21,12 +21,16 @@ const {
   server: { host, path, port }
 } = clientConfig;
 
-// passing an options object like this createPersistedQueryLink({ useGETForHashedQueries: true }) enables persisted queries but breaks fetchMore()
-// also see https://github.com/apollographql/apollo-link-persisted-queries/issues/33
+/*
+ * passing an options object like this createPersistedQueryLink({ useGETForHashedQueries: true }) enables persisted
+ * queries but breaks fetchMore()
+ * also see https://github.com/apollographql/apollo-link-persisted-queries/issues/33
+ *
+ * uri is for example 'http://loacalhost:4000/graphql' or 'http://192.168.99.100:4000/graphql'
+ */
 const httpLink = createPersistedQueryLink().concat(
   createHttpLink({ uri: `http://${host}:${port}${path}` })
 );
-// e.g. 'http://loacalhost:4000/graphql' or 'http://192.168.99.100:4000/graphql'
 
 const authLink = setContext((_, { headers }) => {
   const token = localStorage.getItem(AUTH_TOKEN);

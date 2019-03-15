@@ -11,6 +11,7 @@
     "curly": [true, "ignore-same-line"],
     "jsx-no-lambda": false,
     "jsx-wrap-multiline": false,
+    "max-line-length": [true, 120],
     "no-implicit-dependencies": [true, "dev", "optional"],
     "no-submodule-imports": false,
     "prettier": true,
