@@ -9,38 +9,38 @@ declare module "*.svg";
 */
 
 declare module "*.gif" {
-    const fileName: string;
-    export = fileName;
+	const fileName: string;
+	export = fileName;
 }
 /*
 declare module '*.graphql' {
-    import {DocumentNode} from 'graphql';
-    const value: DocumentNode;
-    export default value;
+	import {DocumentNode} from 'graphql';
+  const value: DocumentNode;
+  export default value;
 }
 */
 declare module "*.graphql" {
-    const fileName: string;
-    export = fileName;
+	const fileName: string;
+	export = fileName;
 }
 
 declare module "*.jpeg" {
-    const fileName: string;
-    export = fileName;
+	const fileName: string;
+	export = fileName;
 }
 
 declare module "*.jpg" {
-    const fileName: string;
-    export = fileName;
+	const fileName: string;
+	export = fileName;
 }
 
 declare module "*.png" {
-    const fileName: string;
-    export = fileName;
+	const fileName: string;
+	export = fileName;
 }
 
 declare module "*.svg" {
-    const fileName: string;
-    export = fileName;
+	const fileName: string;
+	export = fileName;
 }
 

@@ -1,20 +1,18 @@
 {
   "defaultSeverity": "warning",
   "extends": [
-    "tslint:latest",
+    "tslint:recommended",
     "tslint-react",
-    "tslint-eslint-rules",
+    "tslint-plugin-prettier",
     "tslint-config-prettier"
   ],
-  "jsRules": {
-    "indent": [true, "tabs"],
-    "no-trailing-whitespace": [true, "ignore-blank-lines"]
-  },
   "rules": {
     // override tslint-react rules here
-    "jsx-wrap-multiline": false,
-    "no-implicit-dependencies": [true, "dev"],
     "curly": [true, "ignore-same-line"],
-    "no-submodule-imports": false
+    "jsx-no-lambda": false,
+    "jsx-wrap-multiline": false,
+    "no-implicit-dependencies": [true, "dev", "optional"],
+    "no-submodule-imports": false,
+    "prettier": true
   }
 }

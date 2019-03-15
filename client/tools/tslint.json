@@ -1,11 +1,17 @@
 {
   "defaultSeverity": "warning",
   "extends": [
-    "tslint:latest",
-    "tslint-config-airbnb",
+    "tslint:recommended",
+    "tslint-config-airbnb-base",
     "tslint-eslint-rules",
+    "tslint-plugin-prettier",
     "tslint-config-prettier"
   ],
+  "jsRules": {
+    "indent": [true, "tabs"],
+    "no-trailing-whitespace": [true, "ignore-blank-lines"],
+    "quotemark": [true, "single", "avoid-escape"]
+  },
   "linterOptions": {
     "exclude": [
       "../.idea/*",
@@ -16,6 +22,7 @@
     ]
   },
   "rules": {
-    "no-implicit-dependencies": [true, "dev"]
+    "no-implicit-dependencies": [true, "dev"],
+    "prettier": true
   }
 }
