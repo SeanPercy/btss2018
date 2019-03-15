@@ -1,28 +1,28 @@
-import gql from 'graphql-tag';
+import { gql } from 'apollo-server-express';
 
 export const Person = gql`
-    interface Person {
-        firstName: String!
-        lastName: String!
-        fullName: String!
-        age: Int!
-        sex: Sex!
-    }
-    enum Sex {
-        FEMALE
-        MALE
-        OTHER
-    }
+  interface Person {
+    firstName: String!
+    lastName: String!
+    fullName: String!
+    age: Int!
+    sex: Sex!
+  }
+  enum Sex {
+    FEMALE
+    MALE
+    OTHER
+  }
 `;
 
 export const personResolvers = {
-	__resolveType(person){
-		if(person.books){
-			return 'Author';
-		}
-		if(person.department){
-			return 'Staff';
-		}
-		return null;
-	},
+  __resolveType(person) {
+    if (person.books) {
+      return 'Author';
+    }
+    if (person.department) {
+      return 'Staff';
+    }
+    return null;
+  },
 };

@@ -1,39 +1,39 @@
-import gql from 'graphql-tag';
+import { gql } from 'apollo-server-express';
 
 export const Author = gql`
-    type Author implements Node & Person {
-        _id: ID!
-        firstName: String!
-        lastName: String!
-        fullName: String!
-        age: Int!
-        sex: Sex!
-        retired: Boolean!
-        books: [Book!]
-    }
-    input AuthorInput {
-       firstName: String!
-       lastName: String!
-       age: Int!
-       sex: Sex!
-       retired: Boolean!
-    }
-	input AuthorUpdateInput {
-		_id: ID!,
-        firstName: String
-        lastName: String
-        fullName: String
-        age: Int
-        sex: Sex
-        retired: Boolean
-	}
+  type Author implements Node & Person {
+    _id: ID!
+    firstName: String!
+    lastName: String!
+    fullName: String!
+    age: Int!
+    sex: Sex!
+    retired: Boolean!
+    books: [Book!]
+  }
+  input AuthorInput {
+    firstName: String!
+    lastName: String!
+    age: Int!
+    sex: Sex!
+    retired: Boolean!
+  }
+  input AuthorUpdateInput {
+    _id: ID!
+    firstName: String
+    lastName: String
+    fullName: String
+    age: Int
+    sex: Sex
+    retired: Boolean
+  }
 `;
 
 export const authorResolvers = {
-	books: (author, _, context) => {
-		return context.dataLoaders.mongo.bookLoader.loadMany(author.books);
-	},
-	fullName: (person) => {
-		return `${person.firstName} ${person.lastName}`;
-	},
+  books: (author, _, context) => {
+    return context.dataLoaders.mongo.bookLoader.loadMany(author.books);
+  },
+  fullName: person => {
+    return `${person.firstName} ${person.lastName}`;
+  },
 };
