@@ -14,11 +14,11 @@
   },
   "linterOptions": {
     "exclude": [
-      "../.idea/*",
-      "../cache/*",
-      "../dist/*",
-      "../node_modules/*",
-      "../src/*"
+      ".idea/*",
+      "cache/*",
+      "dist/*",
+      "node_modules/*",
+      "src/*"
     ]
   },
   "rules": {

@@ -1,15 +1,15 @@
-import webpackMerge from "webpack-merge";
+import webpackMerge from 'webpack-merge';
 
-import { common } from "./tools/webpackConfig/common";
-import { development } from "./tools/webpackConfig/development";
-import { production } from "./tools/webpackConfig/production";
+import { common } from './webpackConfig/common';
+import { development } from './webpackConfig/development';
+import { production } from './webpackConfig/production';
 
 const mergeConfigs = mode => webpackMerge.smart(mode, common);
 
 const buildConfig = () => {
   const mode = process.env.NODE_ENV;
   process.stdout.write(`Start build for NODE_ENV: ${mode}\n`);
-  return mode === "production"
+  return mode === 'production'
     ? mergeConfigs(production)
     : mergeConfigs(development);
 };

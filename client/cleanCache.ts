@@ -22,6 +22,6 @@ function deleteFolderRecursive(dir: string): void {
 
 process.stdout.write('Cleaning cache...\n');
 
-deleteFolderRecursive(path.resolve(__dirname, '../cache'));
+deleteFolderRecursive(path.resolve(__dirname, '/cache'));
 
 process.stdout.write('Successfully cleaned working tree!\n');

@@ -5,7 +5,7 @@ const {
   SERVER_HOST,
   SERVER_PATH,
   SERVER_PORT,
-  TEST_PORT
+  TEST_PORT,
 } = process.env;
 
 /*
@@ -14,18 +14,18 @@ const {
  */
 export const clientConfig = {
   dev: {
-    host: DEV_HOST || "localhost",
-    port: +DEV_PORT || 8080 // type coercion of DEV_PORT to number
+    host: DEV_HOST || 'localhost',
+    port: +DEV_PORT || 8080, // type coercion of DEV_PORT to number
   },
   jwt: {
-    secret: APP_SECRET || "my_secret"
+    secret: APP_SECRET || 'my_secret',
   },
   server: {
-    host: SERVER_HOST || "localhost", // Docker sets SERVER_HOST to '192.168.99.100'
-    path: SERVER_PATH || "/graphql", // for subscriptions to work it is crucial that the value of path is '/graphql' and not '/graphql/'
-    port: SERVER_PORT || 4000
+    host: SERVER_HOST || 'localhost', // Docker sets SERVER_HOST to '192.168.99.100'
+    path: SERVER_PATH || '/graphql', // for subscriptions to work it is crucial that the value of path is '/graphql' and not '/graphql/'
+    port: SERVER_PORT || 4000,
   },
   test: {
-    port: TEST_PORT || 4004
-  }
+    port: TEST_PORT || 4004,
+  },
 };

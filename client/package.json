@@ -18,25 +18,25 @@
   ],
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "cc": "ts-node tools/cleanCache.ts",
+    "cc": "ts-node cleanCache.ts",
     "prebuild": "npm run lint",
     "build": "cross-env NODE_ENV=production webpack",
     "pretest-build": "npm run build",
     "test-build": "ts-node test/testProductionBuild.ts",
     "server": "cross-env NODE_ENV=development webpack-dev-server",
-    "server-autoreload": "nodemon --config tools/nodemon.json -x npm run server",
+    "server-autoreload": "nodemon -x npm run server",
     "lint": "npm run lint:tsx && npm run lint:ts && npm run lint:style",
     "lint:tsx": "tslint -c src/tslint.json -p src/tsconfig.json --fix",
-    "lint:style": "stylelint src/**/*.scss --config tools/.stylelintrc --cache --cache-location cache/.stylelintcache/",
-    "lint:ts": "tslint -c tools/tslint.json -p tsconfig.json --fix"
+    "lint:style": "stylelint src/**/*.scss --fix --cache --cache-location cache/.stylelintcache/",
+    "lint:ts": "tslint -c tslint.json -p tsconfig.json --fix"
   },
   "sideEffects": [
     "*css",
     "*.scss"
   ],
   "optionalDependencies": {
-    "components": "tslint-hack to prevent a false warning getting emitted",
-    "helpers": "tslint-hack to prevent a false warning getting emitted"
+    "components": "tslint-hack",
+    "helpers": "tslint-hack"
   },
   "husky": {
     "hooks": {
@@ -44,8 +44,16 @@
     }
   },
   "lint-staged": {
-    "*.js": [
-      "npm run lint",
+    "*.(js|ts)": [
+      "npm run lint:ts",
+      "git add"
+    ],
+    "*.scss": [
+      "npm run lint:style",
+      "git add"
+    ],
+    "*.tsx": [
+      "npm run lint:tsx",
       "git add"
     ]
   },
@@ -108,7 +116,8 @@
     "sass-loader": "^7.1.0",
     "style-loader": "^0.23.1",
     "stylelint": "^9.9.0",
-    "stylelint-config-standard": "^18.2.0",
+    "stylelint-config-prettier": "^5.0.0",
+    "stylelint-prettier": "^1.0.6",
     "terser-webpack-plugin": "^1.2.2",
     "tether": "^1.4.5",
     "ts-node": "^8.0.2",

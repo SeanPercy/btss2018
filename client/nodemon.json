@@ -5,8 +5,7 @@
     "tools/*"
   ],
   "ignore":[
-    "production.ts",
-    ".stylelintrc"
+    "production.ts"
   ],
   "ext": "js,json,ts"
 }

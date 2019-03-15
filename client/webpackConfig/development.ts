@@ -2,14 +2,14 @@ import path from 'path';
 
 import webpack from 'webpack';
 
-import { clientConfig } from '../../client-config';
+import { clientConfig } from '../client-config';
 const {
   dev: { host, port },
 } = clientConfig;
 
 export const development: webpack.Configuration = {
   devServer: {
-    contentBase: path.resolve(__dirname, '../../src'),
+    contentBase: path.resolve(__dirname, '../src'),
     historyApiFallback: true,
     host,
     hotOnly: true,

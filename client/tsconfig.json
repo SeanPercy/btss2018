@@ -16,11 +16,13 @@
     "src"
   ],
   "files": [
+    "babel.config.js",
+    "cleanCache.ts",
+    "postcss.config.js",
     "webpack.config.ts"
   ],
   "include": [
     "test/**/*",
-    "tools/**/*.ts",
-    "tools/**/*.js"
+    "webpackConfig/**/*.ts"
   ]
 }

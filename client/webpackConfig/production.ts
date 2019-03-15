@@ -1,11 +1,11 @@
 import path from 'path';
 
 // import { BundleAnalyzerPlugin } from "webpack-bundle-analyzer";
-import { CleanWebpackPlugin } from 'clean-webpack-plugin';
-import { HtmlWebpackPlugin } from 'html-webpack-plugin';
-import { MiniCssExtractPlugin } from 'mini-css-extract-plugin';
-import { OptimizeCssAssetsPlugin } from 'optimize-css-assets-webpack-plugin';
-import { TerserWebpackPlugin } from 'terser-webpack-plugin';
+import CleanWebpackPlugin from 'clean-webpack-plugin';
+import HtmlWebpackPlugin from 'html-webpack-plugin';
+import MiniCssExtractPlugin from 'mini-css-extract-plugin';
+import OptimizeCssAssetsPlugin from 'optimize-css-assets-webpack-plugin';
+import TerserWebpackPlugin from 'terser-webpack-plugin';
 import webpack from 'webpack';
 
 export const production: webpack.Configuration = {
@@ -63,7 +63,7 @@ export const production: webpack.Configuration = {
   },
   plugins: [
     new CleanWebpackPlugin(['dist'], {
-      root: path.resolve(__dirname, '../../'),
+      root: path.resolve(__dirname, '../'),
     }),
     new MiniCssExtractPlugin({
       chunkFilename: '[name].[contenthash].css',
@@ -83,7 +83,7 @@ export const production: webpack.Configuration = {
         removeStyleLinkTypeAttributes: true,
         useShortDoctype: true,
       },
-      template: path.resolve(__dirname, '../../src/template.html'),
+      template: path.resolve(__dirname, '../src/template.html'),
       title: 'ReactBabelTypeScriptWebpack',
     }),
     // new BundleAnalyzerPlugin()
