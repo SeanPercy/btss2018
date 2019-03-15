@@ -1,5 +1,5 @@
 {
-  "defaultSeverity": "warning",
+  "defaultSeverity": "error",
   "extends": [
     "tslint:recommended",
     "tslint-config-airbnb-base",
@@ -22,7 +22,9 @@
     ]
   },
   "rules": {
+    // override tslint-react rules here
     "no-implicit-dependencies": [true, "dev"],
+    "no-magic-numbers": [true, 8080, 4000, 4004],
     "prettier": true
   }
 }

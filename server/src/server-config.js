@@ -33,10 +33,9 @@ export const serverConfig = {
   },
   server: {
     host: SERVER_HOST || 'localhost', // Docker sets SERVER_HOST to '192.168.99.100'
-    path:
-      SERVER_PATH ||
-      '/graphql' /* for subscriptions to work on clientside it is crucial that the value of
-                                         SERVER_PATH is '/graphql' and not '/graphql/' */,
+    path: SERVER_PATH || '/graphql',
+    /* for subscriptions to work on clientside it is crucial that the value of
+     * SERVER_PATH is '/graphql' and not '/graphql/' */
     port: SERVER_PORT || 4000,
   },
 };

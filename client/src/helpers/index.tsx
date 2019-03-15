@@ -31,7 +31,11 @@ export const _subscribeToNewItems = (
   });
 };
 
-export const _subscribeToUpdatedItems = (data: any, SUBSCRIPTION_QUERY: string, event: string, collection: string
+export const _subscribeToUpdatedItems = (
+  data: any,
+  SUBSCRIPTION_QUERY: string,
+  event: string,
+  collection: string
 ) => () => {
   data.subscribeToMore({
     document: SUBSCRIPTION_QUERY,

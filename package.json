@@ -1,0 +1,14 @@
+{
+  "name": "btss2018",
+  "version": "1.0.0",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/SeanPercy/btss2018.git"
+  },
+  "author": "SeanPercy",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/SeanPercy/btss2018/issues"
+  },
+  "homepage": "https://github.com/SeanPercy/btss2018#readme"
+}
