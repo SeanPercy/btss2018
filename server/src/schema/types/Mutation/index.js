@@ -67,7 +67,7 @@ export const mutationResolvers = {
     return { user, token };
   },
   addAuthor: (parent, { author }, context) => {
-    if (!context.user || !context.user.role === 'ADMIN')
+    if (!context.user || context.user.role !== 'ADMIN')
       return new Error('Not Authorizied');
     return context.models.mongo.Author.addAuthor(author, context).then(
       newAuthor => {
@@ -77,7 +77,7 @@ export const mutationResolvers = {
     );
   },
   updateAuthor: (parent, { author }, context) => {
-    if (!context.user || !context.user.role === 'ADMIN')
+    if (!context.user || context.user.role !== 'ADMIN')
       return new Error('Not Authorizied');
     return context.models.mongo.Author.updateAuthor(author, context).then(
       updatedAuthor => {

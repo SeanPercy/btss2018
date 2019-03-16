@@ -20,7 +20,7 @@ export const Query = gql`
 
 export const queryResolvers = {
   allStaff: async (parent, _, context) => {
-    if (!context.user || !context.user.role === 'ADMIN')
+    if (!context.user || context.user.role !== 'ADMIN')
       return new Error('Not Authorizied');
     const allStaff = await context.models.mongo.Staff.getAll(context);
     for (const staff of allStaff) {
@@ -33,37 +33,37 @@ export const queryResolvers = {
     return getUser(context.authToken);
   },
   authorById: (parent, { _id }, context) => {
-    if (!context.user || !context.user.role === 'ADMIN')
+    if (!context.user || context.user.role !== 'ADMIN')
       return new Error('Not Authorizied');
     return context.models.mongo.Author.getById(_id, context);
   },
   authorByName: (parent, { name }, context) => {
-    if (!context.user || !context.user.role === 'ADMIN')
+    if (!context.user || context.user.role !== 'ADMIN')
       return new Error('Not Authorizied');
     return context.models.mongo.Author.getByName(name, context);
   },
   allAuthors: (parent, _, context) => {
-    if (!context.user || !context.user.role === 'ADMIN')
+    if (!context.user || context.user.role !== 'ADMIN')
       return new Error('Not Authorizied');
     return context.models.mongo.Author.getAll(context);
   },
   staffById: (parent, { _id }, context) => {
-    if (!context.user || !context.user.role === 'ADMIN')
+    if (!context.user || context.user.role !== 'ADMIN')
       return new Error('Not Authorizied');
     return context.models.mongo.Staff.getById(_id, context);
   },
   allBooks: (parent, _, context) => {
-    if (!context.user || !context.user.role === 'ADMIN')
+    if (!context.user || context.user.role !== 'ADMIN')
       return new Error('Not Authorizied');
     return context.models.mongo.Book.getAll(context);
   },
   bookById: (parent, { _id }, context) => {
-    if (!context.user || !context.user.role === 'ADMIN')
+    if (!context.user || context.user.role !== 'ADMIN')
       return new Error('Not Authorizied');
     return context.models.mongo.Book.getById(_id, context);
   },
   books: (root, { skip, limit }, context) => {
-    if (!context.user || !context.user.role === 'ADMIN')
+    if (!context.user || context.user.role !== 'ADMIN')
       return new Error('Not Authorizied');
     const cursor = context.models.mongo.Book.getSample(
       { skip, limit },
@@ -72,12 +72,12 @@ export const queryResolvers = {
     return cursor.toArray();
   },
   allUsers: (parent, _, context) => {
-    if (!context.user || !context.user.role === 'ADMIN')
+    if (!context.user || context.user.role !== 'ADMIN')
       return new Error('Not Authorizied');
     return context.models.mongo.User.getAll(context);
   },
   allPersons: async (parent, _, context) => {
-    if (!context.user || !context.user.role === 'ADMIN')
+    if (!context.user || context.user.role !== 'ADMIN')
       return new Error('Not Authorizied');
     const [authors, allStaff] = await Promise.all([
       context.models.mongo.Author.getAll(context),
