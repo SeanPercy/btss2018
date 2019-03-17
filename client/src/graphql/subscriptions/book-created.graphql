@@ -1,4 +1,4 @@
-subscription {
+subscription bookCreated {
     bookCreated {
         _id
         title

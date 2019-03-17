@@ -1,4 +1,4 @@
-subscription {
+subscription authorCreated {
     authorCreated {
         _id
         firstName

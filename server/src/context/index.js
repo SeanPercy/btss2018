@@ -14,8 +14,16 @@ export function createContext({ req, mongodb }) {
   const mongo = 'mongo';
 
   return {
+    authToken: token,
     connectors: {
       [mongo]: new MongoDBConnector(mongodb),
+    },
+    dataLoaders: {
+      mongo: {
+        authorLoader: buildMongoLoader({ db: mongodb, collection: 'authors' }),
+        bookLoader: buildMongoLoader({ db: mongodb, collection: 'books' }),
+        staffLoader: buildMongoLoader({ db: mongodb, collection: 'staff' }),
+      },
     },
     models: {
       mongo: {
@@ -25,14 +33,6 @@ export function createContext({ req, mongodb }) {
         User: new User({ db: mongo, collection: 'users' }),
       },
     },
-    dataLoaders: {
-      mongo: {
-        authorLoader: buildMongoLoader({ db: mongodb, collection: 'authors' }),
-        bookLoader: buildMongoLoader({ db: mongodb, collection: 'books' }),
-        staffLoader: buildMongoLoader({ db: mongodb, collection: 'staff' }),
-      },
-    },
-    authToken: token,
-    user,
+    user
   };
 }

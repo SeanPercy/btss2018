@@ -80,7 +80,7 @@ const getOptionsAndProps = (collection: string) => ({
 });
 
 const BOOK_LIST_QUERY = gql`
-  query($skip: Int, $limit: Int) {
+  query BookList($skip: Int, $limit: Int) {
     books(skip: $skip, limit: $limit) {
       _id
       title
