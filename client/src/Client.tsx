@@ -1,5 +1,5 @@
 // tslint:disable:no-console
-import { InMemoryCache } from 'apollo-boost';
+import { InMemoryCache } from 'apollo-cache-inmemory';
 import { ApolloClient } from 'apollo-client';
 import { split } from 'apollo-link';
 import { setContext } from 'apollo-link-context';

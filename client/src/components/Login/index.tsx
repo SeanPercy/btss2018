@@ -12,7 +12,7 @@ const LOGIN_MUTATION = gql`
   }
 `;
 
-class Login extends React.Component<
+export class Login extends React.Component<
   { history: any },
   { password: string; email: string }
 > {

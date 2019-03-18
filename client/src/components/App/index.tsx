@@ -3,12 +3,12 @@ import React from 'react';
 import { hot } from 'react-hot-loader';
 import { BrowserRouter, Route, Switch } from 'react-router-dom';
 
-import AuthorList from 'components/AuthorList';
-import BookList from 'components/BookList';
 import Header from 'components/Header';
 import Home from 'components/Home';
 import Login from 'components/Login';
-import StaffList from 'components/StaffList';
+import AuthorList from 'containers/AuthorList';
+import BookList from 'containers/BookList';
+import StaffList from 'containers/StaffList';
 
 class App extends React.Component<{}, {}> {
   public render(): JSX.Element {
