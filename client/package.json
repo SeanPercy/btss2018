@@ -36,6 +36,7 @@
   ],
   "optionalDependencies": {
     "components": "tslint-hack",
+    "containers": "tslint-hack",
     "helpers": "tslint-hack"
   },
   "husky": {
