@@ -1,7 +1,7 @@
-import gql from 'graphql-tag';
 import { compose, graphql } from 'react-apollo';
 
 import { BookList } from 'components/BookList';
+import BOOK_LIST_QUERY from 'graphql/queries/books.graphql';
 import BOOK_CREATED_SUB from 'graphql/subscriptions/book-created.graphql';
 import {
   _subscribeToNewItems,
@@ -46,15 +46,6 @@ const getOptionsAndProps = (collection: string) => ({
     };
   }
 });
-
-const BOOK_LIST_QUERY = gql`
-  query($skip: Int, $limit: Int) {
-    books(skip: $skip, limit: $limit) {
-      _id
-      title
-    }
-  }
-`;
 
 export default compose(
   graphql(BOOK_LIST_QUERY, getOptionsAndProps('books')),

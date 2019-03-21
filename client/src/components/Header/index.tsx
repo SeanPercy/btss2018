@@ -35,9 +35,11 @@ class Header extends React.PureComponent<{ client: any; history: any }> {
                 type="button"
                 onClick={() => {
                   localStorage.removeItem('auth-token');
-                  this.props.client
-                    .clearStore()
-                    .then(() => this.props.history.push(`/`));
+                  const { client, history } = this.props;
+                  client.clearStore().then(() => {
+                    client.cache.reset();
+                    history.push(`/`);
+                  });
                 }}
               >
                 LOGOUT

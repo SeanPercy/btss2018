@@ -1,63 +1,16 @@
-import React from 'react';
-import { branch, renderComponent } from 'recompose';
+import { renderForError } from './ErrorComponent';
+import { renderWhileLoading } from './LoadingComponent';
+import { _subscribeToNewItems } from './subscribeToNewItems';
+import { _subscribeToUpdatedItems } from './subscribeToUpdatedItems';
+import { AUTH_TOKEN, dataIdFromObject } from './utils';
 
-const LoadingComponent = () => <div>... LOADING ...</div>;
-export const renderWhileLoading = () =>
-  branch(({ loading }) => loading, renderComponent(LoadingComponent));
-
-const ErrorComponent = error => <div>{error.message}</div>;
-export const renderForError = () =>
-  branch(
-    ({ error }) => error,
-    renderComponent(({ error }) => ErrorComponent(error))
-  );
-
-export const _subscribeToNewItems = (
-  data: any,
-  SUBSCRIPTION_QUERY: string,
-  event: string,
-  collection: string
-) => () => {
-  data.subscribeToMore({
-    document: SUBSCRIPTION_QUERY,
-    updateQuery: (prev, { subscriptionData }) => {
-      if (!subscriptionData.data) {
-        return prev;
-      }
-      return {
-        [collection]: [...prev[collection], subscriptionData.data[event]]
-      };
-    }
-  });
-};
-
-export const _subscribeToUpdatedItems = (
-  data: any,
-  SUBSCRIPTION_QUERY: string,
-  event: string,
-  collection: string
-) => () => {
-  data.subscribeToMore({
-    document: SUBSCRIPTION_QUERY,
-    updateQuery: (prev, { subscriptionData }) => {
-      if (!subscriptionData.data) {
-        return prev;
-      }
-      const updatedItem = subscriptionData.data[event];
-      const items = prev[collection];
-
-      // check if the updated item is currently part of the view
-      const index = items.findIndex(item => item._id !== updatedItem._id);
-
-      // if it is part of the view, update the corresponding item, before eventually returning the
-      if (index) {
-        items[index] = updatedItem;
-      }
-      return {
-        [collection]: items
-      };
-    }
-  });
+export {
+  AUTH_TOKEN,
+  dataIdFromObject,
+  renderForError,
+  renderWhileLoading,
+  _subscribeToNewItems,
+  _subscribeToUpdatedItems
 };
 
 /*

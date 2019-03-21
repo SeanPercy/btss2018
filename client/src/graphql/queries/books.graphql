@@ -1,0 +1,6 @@
+query books($skip: Int, $limit: Int) {
+    books(skip: $skip, limit: $limit) {
+        _id
+        title
+    }
+}

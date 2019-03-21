@@ -33,6 +33,6 @@ export function createContext({ req, mongodb }) {
         User: new User({ db: mongo, collection: 'users' }),
       },
     },
-    user
+    user,
   };
 }

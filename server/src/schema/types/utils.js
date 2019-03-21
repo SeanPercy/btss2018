@@ -26,3 +26,5 @@ export const buildFilters = ({ OR = [], contentContains, infoContains }) => {
   }
   return filters;
 };
+
+export const notAuthorized = () => new Error('Not Authorized');

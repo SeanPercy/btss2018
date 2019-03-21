@@ -1,8 +1,9 @@
+// tslint:disable:no-console
 import gql from 'graphql-tag';
 import React from 'react';
 import { Mutation } from 'react-apollo';
 
-const AUTH_TOKEN = 'auth-token';
+import { AUTH_TOKEN } from 'helpers';
 
 const LOGIN_MUTATION = gql`
   mutation LoginMutation($credentials: UserLoginInput!) {
@@ -49,8 +50,17 @@ export class Login extends React.Component<
             variables={{ credentials: { email, password } }}
             onCompleted={data => this.confirm(data)}
           >
-            {mutation => (
-              <div className="btn btn-outline-success" onClick={mutation}>
+            {(login, { client }) => (
+              <div
+                className="btn btn-outline-success"
+                onClick={() => {
+                  login().then(() =>
+                    client
+                      .resetStore()
+                      .then(() => console.log('Reset Store on Login'))
+                  );
+                }}
+              >
                 Login
               </div>
             )}
