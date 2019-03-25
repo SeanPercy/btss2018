@@ -3,9 +3,11 @@ import { withApollo } from 'react-apollo';
 import { withRouter } from 'react-router';
 import { Link } from 'react-router-dom';
 
+import { AUTH_TOKEN } from 'helpers';
+
 class Header extends React.PureComponent<{ client: any; history: any }> {
   public render(): JSX.Element {
-    const authToken = localStorage.getItem('auth-token');
+    const authToken = localStorage.getItem(AUTH_TOKEN);
     return (
       <nav className="navbar navbar-expand-lg navbar-light bg-light">
         <div className="collapse navbar-collapse" id="navbarNav">
@@ -34,7 +36,7 @@ class Header extends React.PureComponent<{ client: any; history: any }> {
                 className="btn btn-outline-success"
                 type="button"
                 onClick={() => {
-                  localStorage.removeItem('auth-token');
+                  localStorage.removeItem(AUTH_TOKEN);
                   const { client, history } = this.props;
                   client.clearStore().then(() => {
                     client.cache.reset();

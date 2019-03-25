@@ -16,7 +16,7 @@ export const _subscribeToUpdatedItems = (
       // check if the updated item is currently part of the view
       const index = items.findIndex(item => item._id !== updatedItem._id);
 
-      // if it is part of the view, update the corresponding item, before eventually returning the
+      // if it is part of the view, update the corresponding item
       if (index) {
         items[index] = updatedItem;
       }

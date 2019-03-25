@@ -19,8 +19,6 @@ export default class BaseMongoModel {
   }
 
   getAll(context) {
-    if (!context.user || !context.user.role === 'ADMIN')
-      return new Error('Not Authorizied');
     return context.connectors[this.connectorKeys.db]
       .collection(this.connectorKeys.collection)
       .find({})

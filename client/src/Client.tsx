@@ -183,6 +183,16 @@ const link = split(
 
 const client = new ApolloClient({
   cache: new InMemoryCache({
+    cacheRedirects: {
+      Query: {
+        author: (_, { _id }, { getCacheKey }) =>
+          getCacheKey({ __typename: 'Author', _id }),
+        book: (_, { _id }, { getCacheKey }) =>
+          getCacheKey({ __typename: 'Book', _id }),
+        staff: (_, { _id }, { getCacheKey }) =>
+          getCacheKey({ __typename: 'Staff', _id })
+      }
+    },
     dataIdFromObject
   }),
   link
