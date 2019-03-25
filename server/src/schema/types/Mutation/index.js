@@ -2,7 +2,13 @@ import { gql } from 'apollo-server-express';
 import bcrypt from 'bcrypt';
 import jwt from 'jsonwebtoken';
 
-import { pubsub, AUTHOR_CREATED, APP_SECRET, AUTHOR_UPDATED } from '../utils';
+import {
+  pubsub,
+  AUTHOR_CREATED,
+  APP_SECRET,
+  AUTHOR_UPDATED,
+  notAuthorized,
+} from '../utils';
 
 export const Mutation = gql`
   type Mutation {
@@ -67,8 +73,7 @@ export const mutationResolvers = {
     return { user, token };
   },
   addAuthor: (parent, { author }, context) => {
-    if (!context.user || context.user.role !== 'ADMIN')
-      return new Error('Not Authorizied');
+    if (!context.user || context.user.role !== 'ADMIN') return notAuthorized();
     return context.models.mongo.Author.addAuthor(author, context).then(
       newAuthor => {
         pubsub.publish(AUTHOR_CREATED, { authorCreated: newAuthor });
@@ -77,8 +82,7 @@ export const mutationResolvers = {
     );
   },
   updateAuthor: (parent, { author }, context) => {
-    if (!context.user || context.user.role !== 'ADMIN')
-      return new Error('Not Authorizied');
+    if (!context.user || context.user.role !== 'ADMIN') return notAuthorized();
     return context.models.mongo.Author.updateAuthor(author, context).then(
       updatedAuthor => {
         pubsub.publish(AUTHOR_UPDATED, { authorUpdated: updatedAuthor });

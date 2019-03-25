@@ -1,12 +1,19 @@
 import { gql } from 'apollo-server-express';
 
-import { pubsub, AUTHOR_CREATED, AUTHOR_UPDATED, BOOK_CREATED } from '../utils';
+import {
+  pubsub,
+  AUTHOR_CREATED,
+  AUTHOR_UPDATED,
+  BOOK_CREATED,
+  STAFF_CREATED,
+} from '../utils';
 
 export const Subscription = gql`
   type Subscription {
     authorCreated: Author
     authorUpdated: Author
     bookCreated: Book
+    staffCreated: Staff
   }
 `;
 
@@ -19,5 +26,8 @@ export const subscriptionResolvers = {
   },
   bookCreated: {
     subscribe: () => pubsub.asyncIterator([BOOK_CREATED]),
+  },
+  staffCreated: {
+    subscribe: () => pubsub.asyncIterator([STAFF_CREATED]),
   },
 };

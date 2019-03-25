@@ -3,7 +3,6 @@ import { ApolloServer } from 'apollo-server-express';
 import express from 'express';
 import { createServer } from 'http';
 import { MongoClient, Logger } from 'mongodb';
-
 import { serverConfig } from './server-config';
 import { seedDatabase } from './helpers/seedDatabase';
 import { createContext } from './context';
@@ -44,10 +43,10 @@ import { executableSchema } from './schema';
     .catch(e => console.log(e));
 
   const apolloServer = new ApolloServer({
-    schema: executableSchema,
-    tracing: true,
     cacheControl: true,
     context: ({ req }) => createContext({ req, mongodb }),
+    schema: executableSchema,
+    tracing: true,
   });
 
   const app = express();
@@ -57,6 +56,7 @@ import { executableSchema } from './schema';
   apolloServer.installSubscriptionHandlers(httpServer);
 
   /*
+   * With the current configuration:
    * On Docker the GraphQL-Server is available on 'http://192.168.99.100:4000/graphql/'
    * Without Docker it is available on 'http://localhost:4000/graphql/'
    */

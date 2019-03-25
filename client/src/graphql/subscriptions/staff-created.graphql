@@ -1,4 +1,4 @@
-subscription {
+subscription staffCreated {
     staffCreated {
         _id
         fullName
